@@ -1,0 +1,52 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% block body %}
+
+    <section id="product_listPage" class="container">
+        {# Button to add new product #}
+        <a href="/produit/" class="waves-effect waves-light btn">
+            <i class="material-icons left">list</i>
+            Voir la liste des produits
+        </a>
+
+        <div id="product_add" class="col s12">
+            {{ form(form) }}
+            {#{{ form_start(form) }}
+                <div class="col s12 ">
+                    {{ form_errors(form) }}
+                </div>
+
+                <!-- Email Field -->
+                <div class="input-field col s12">
+                    {{ form_widget(form.name, { 'attr': {'class': 'validate'} }) }}
+                    <label for="formRegister[name]">Nom du produit</label>
+                </div>
+
+                <!-- Description Field -->
+                <div class="input-field col s12 m6">
+                    {{ form_widget(form.description, { 'attr': {'class': 'validate'} }) }}
+                    <label for="form[description]">Description</label>
+                </div>
+
+                <!-- Category Field -->
+                <div class="input-field col s12 m6">
+                    {{ form_widget(form.category, { 'attr': {'class': 'validate'} }) }}
+                    <label for="form[category]">Catégorie du produit</label>
+                </div>
+
+                <!-- ProductSupplier Field -->
+                <div class="input-field col s12 m6">
+                    {{ form(form.productSupplier) }}
+                </div>
+
+                <!-- Submit Field -->
+                <div class="input-field col s12">
+                    {{ form_row(form.submit, { 'attr': {'class': 'btn waves-effect waves-light'} }) }}
+                </div>
+            {{ form_end(form) }}#}
+        </div>
+    </section>
+
+{% endblock %}

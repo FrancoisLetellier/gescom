@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Gescom - {% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css') }}">
+        <link href="{{ asset('https://fonts.googleapis.com/icon?family=Material+Icons') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <header>
+            {% include '@Gescom/Partials/header.html.twig' %}
+        </header>
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        <footer>
+            {% include '@Gescom/Partials/footer.html.twig' %}
+        </footer>
+
+        <script type="text/javascript" src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('assets/js/main.js') }}"></script>
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

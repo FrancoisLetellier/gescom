@@ -1,0 +1,5 @@
+gescom:
+    resource: "@GescomBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

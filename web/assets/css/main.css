@@ -1,0 +1,45 @@
+/**
+ * General Areal
+ */
+.container {
+  margin: 2rem auto; }
+
+.btn {
+  background-color: #b7a1d9;
+  color: #484848; }
+  .btn:hover {
+    background-color: #c5b3e0; }
+
+a i.material-icons {
+  color: #484848 !important; }
+
+/**
+ * Form Area
+ */
+input[type="checkbox"]:checked + label:before {
+  border-right: 2px solid #b7a1d9;
+  border-bottom: 2px solid #b7a1d9; }
+
+form ul li span {
+  color: #b7a1d9 !important; }
+
+form input:focus {
+  border-bottom: 1px solid #b7a1d9 !important;
+  box-shadow: 0 1px 0 0 #b7a1d9 !important; }
+
+/**
+ * Header Area
+ */
+header .nav-wrapper {
+  background-color: #b7a1d9; }
+  header .nav-wrapper .brand-logo {
+    padding-left: 1rem;
+    color: #484848; }
+  header .nav-wrapper ul li a {
+    color: #484848; }
+
+/**
+ * Footer Area
+ */
+#product_listPage .add_product_btn {
+  margin: 0 auto; }
