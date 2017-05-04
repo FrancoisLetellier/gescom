@@ -2,6 +2,8 @@
 
 namespace GescomBundle\Repository;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * ProductRepository
  *
@@ -10,4 +12,16 @@ namespace GescomBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param int $page
+     * @param int $maxByPage
+     * @return Paginator
+     */
+    public function getListByPage($page = 1, $maxByPage = 5)
+    {
+        $builder = $this->createQueryBuilder('p')
+            ->setFirstResult(($page-1) * $maxByPage)
+            ->setMaxResults($maxByPage);
+        return new Paginator($builder);
+    }
 }

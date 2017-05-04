@@ -44,6 +44,6 @@ class SupplierListType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'gescom_bundle_supplier_type';
+        return 'gescom_bundle_supplierList_type';
     }
 }

@@ -20,6 +20,10 @@ a i.material-icons {
   display: block;
   width: 100%; }
 
+#product_listPagination {
+  text-align: center;
+  padding: 1rem 0; }
+
 /**
  * Form Area
  */
@@ -48,5 +52,3 @@ header .nav-wrapper {
 /**
  * Footer Area
  */
-#product_listPage .add_btn {
-  margin: 0 auto; }

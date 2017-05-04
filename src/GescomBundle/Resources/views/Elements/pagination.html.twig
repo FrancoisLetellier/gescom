@@ -1,0 +1,44 @@
+<div id="product_listPagination">
+    <div class="pagination-buttons">
+        <ul class="pagination">
+            {% if pagination.page>1 %}
+                <li class="disabled wave-effect">
+                    <a href="{{ path(pagination.route,
+                        pagination.route_params|merge({'page': 1})) }}">
+                        <i class="material-icons">fast_rewind</i>
+                    </a>
+                </li>
+                <li class="waves-effect">
+                    <a href="{{ path(pagination.route,
+                        pagination.route_params|merge({'page': pagination.page-1})) }}">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                </li>
+            {% endif %}
+            {#display p numbers only from p-4 to p+4 but don't go <1 or >pages_count#}
+            {% for p in range(max(pagination.page-4, 1),
+            min(pagination.page+4, pagination.pages_count)) %}
+                <li class="waves-effect">
+                    <a{% if p == pagination.page %} class="current-page"{% endif %}
+                        href="{{ path(pagination.route,
+                        pagination.route_params|merge({'page': p})) }}">{{ p }}
+                    </a>
+                </li>
+            {% endfor %}
+            {% if pagination.page<pagination.pages_count %}
+                <li class="waves-effect">
+                    <a href="{{ path(pagination.route,
+                        pagination.route_params|merge({'page': pagination.page+1})) }}">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                </li>
+                <li class="waves-effect">
+                    <a href="{{ path(pagination.route,
+                        pagination.route_params|merge({'page': pagination.pages_count})) }}">
+                        <i class="material-icons">fast_forward</i>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

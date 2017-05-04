@@ -15,15 +15,31 @@ use Symfony\Component\HttpFoundation\Request;
 class ProductController extends Controller
 {
     /**
-     * @Route("/", name="productList")
+     * @Route("/{page}", name="productList")
      */
-    public function listProductAction()
+    public function listProductAction($page = 1)
     {
-        $products = $this->getDoctrine()->getRepository('GescomBundle:Product')->findAll();
+        $maxProduct = 20;
+        $product_count = 500;
+        $pagination = array(
+            'page' => $page,
+            'route' => 'productList',
+            'pages_count' => ceil($product_count / $maxProduct),
+            'route_params' => array()
+        );
 
-        return $this->render('GescomBundle:Pages/Product:product_list.html.twig', [
+        $product = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getListByPage($page, $maxProduct);
+
+        $products = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getListByPage($page, $maxProduct);
+
+
+        return $this->render('GescomBundle:Pages/Product:product_list.html.twig', array(
+            'articles' => $product,
+            'pagination' => $pagination,
             'products'  => $products,
-        ]);
+        ));
     }
 
     /**
