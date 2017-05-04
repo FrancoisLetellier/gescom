@@ -30,7 +30,7 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
             $randomCategory = 'category_id_' . mt_rand(0, 9);
 
             $product = new Product();
-            $product->setName($faker->word);
+            $product->setName(implode(' ', $faker->words(2)));
             $product->setDescription($faker->sentence(5));
             $product->setCategory($this->getReference($randomCategory));
             $em->persist($product);

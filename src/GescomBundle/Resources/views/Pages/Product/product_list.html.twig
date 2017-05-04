@@ -29,16 +29,19 @@
                     </thead>
                     <tbody>
                     {% for product in products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category.name }}</td>
-                            <td>
-                                {% for supplier in product.productSupplier %}
-                                    <span class="supplier-item">{{ supplier.supplier.name }}</span>
-                                {% endfor %}
-                            </td>
-                        </tr>
+                        {% if product.ProductSupplier is empty %}
+                        {% else %}
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category.name }}</td>
+                                <td>
+                                    {% for supplier in product.productSupplier %}
+                                        <span class="supplier-item">{{ supplier.supplier.name }}</span>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
