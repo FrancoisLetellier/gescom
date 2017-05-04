@@ -16,6 +16,10 @@
 a i.material-icons {
   color: #484848 !important; }
 
+.supplier-item {
+  display: block;
+  width: 100%; }
+
 /**
  * Form Area
  */

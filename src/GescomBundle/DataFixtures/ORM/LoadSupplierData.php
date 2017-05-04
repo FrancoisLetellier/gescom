@@ -2,12 +2,10 @@
 
 namespace GescomBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use GescomBundle\Entity\Category;
-use GescomBundle\Entity\Product;
-use GescomBundle\Entity\ProductSupplier;
 use GescomBundle\Entity\Supplier;
 
 use Faker;
@@ -16,7 +14,7 @@ use Faker;
  * Class LoadSupplierData
  * @package GescomBundle\DataFixtures\ORM
  */
-class LoadSupplierData implements FixtureInterface
+class LoadSupplierData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * @param ObjectManager $em
@@ -43,6 +41,7 @@ class LoadSupplierData implements FixtureInterface
             $supplier->setDeliveryTime($faker->numberBetween(1, 30));
             $supplier->setNote($faker->numberBetween(1, 5));
             $em->persist($supplier);
+            $this->setReference('supplier_id_'.$i, $supplier);
         }
 
         /**
@@ -50,7 +49,6 @@ class LoadSupplierData implements FixtureInterface
          */
         $em->flush();
     }
-
     public function getOrder()
     {
         return 2;

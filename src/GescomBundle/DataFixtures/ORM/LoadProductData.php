@@ -2,13 +2,11 @@
 
 namespace GescomBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use GescomBundle\Entity\Category;
 use GescomBundle\Entity\Product;
-use GescomBundle\Entity\ProductSupplier;
-use GescomBundle\Entity\Supplier;
 
 use Faker;
 
@@ -16,7 +14,7 @@ use Faker;
  * Class LoadProductData
  * @package GescomBundle\DataFixtures\ORM
  */
-class LoadProductData implements FixtureInterface
+class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * @param ObjectManager $em
@@ -29,27 +27,15 @@ class LoadProductData implements FixtureInterface
          * Product Area
          */
         for ($i = 0; $i < 500; $i++){
-            $product = new Product();
-            $suppliers = $product->getProductSupplier()["name"];
-            $product->resetProductSupplier();
+            $randomCategory = 'category_id_' . mt_rand(0, 9);
 
+            $product = new Product();
             $product->setName($faker->word);
             $product->setDescription($faker->sentence(5));
-            $product->setCategory(new Category());
-
-            foreach($suppliers as $supplier){
-                // create a new link entity
-                $productSupplier = new ProductSupplier();
-                // set product
-                $productSupplier->setProduct($product);
-                // set supplier
-                $productSupplier->setSupplier($supplier);
-                $em->persist($productSupplier);
-                // add supplier to product
-                $product->addProductSupplier($productSupplier);
-            }
+            $product->setCategory($this->getReference($randomCategory));
             $em->persist($product);
-            $em->flush();
+
+            $this->setReference('product_id_'.$i, $product);
         }
 
         /**

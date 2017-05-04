@@ -2,13 +2,12 @@
 
 namespace GescomBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
 use GescomBundle\Entity\Category;
-use GescomBundle\Entity\Product;
-use GescomBundle\Entity\ProductSupplier;
-use GescomBundle\Entity\Supplier;
+
 
 use Faker;
 
@@ -16,7 +15,7 @@ use Faker;
  * Class LoadCategoryData
  * @package GescomBundle\DataFixtures\ORM
  */
-class LoadCategoryData implements FixtureInterface
+class LoadCategoryData  extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * @param ObjectManager $em
@@ -33,6 +32,7 @@ class LoadCategoryData implements FixtureInterface
             $category->setName(implode($faker->words(2)));
             $category->setDescription($faker->sentence(5));
             $em->persist($category);
+            $this->setReference('category_id_'.$i, $category);
         }
         /**
          * Save Generates

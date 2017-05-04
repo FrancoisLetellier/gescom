@@ -28,7 +28,7 @@
                             <td>{{ product.category.name }}</td>
                             <td>
                                 {% for supplier in product.productSupplier %}
-                                    {{ supplier.supplier.name }}
+                                    <span class="supplier-item">{{ supplier.supplier.name }}</span>
                                 {% endfor %}
                             </td>
                         </tr>
