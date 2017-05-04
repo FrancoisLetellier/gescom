@@ -4,11 +4,15 @@
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">view_week</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/">Accueil</a></li>
-            <li><a href="/produit">Nos produits</a></li>
+            <li><a href="{{ path('productList') }}">Produits</a></li>
+            <li><a href="{{ path('categoryList') }}">Categories</a></li>
+            <li><a href="{{ path('supplierList') }}">Fournisseurs</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
             <li><a href="/">Accueil</a></li>
-            <li><a href="/produit">Nos produits</a></li>
+            <li><a href="{{ path('productList') }}">produits</a></li>
+            <li><a href="{{ path('categoryList') }}">Catégories</a></li>
+            <li><a href="{{ path('supplierList') }}">fournisseurs</a></li>
         </ul>
     </div>
 </nav>

@@ -16,11 +16,11 @@ class SupplierType extends AbstractType
             ->add('postalCode', TextType::class, ['label' => 'Code postal'])
             ->add('town', TextType::class, ['label' => 'Ville'])
             ->add('siret', TextType::class, ['label' => 'SIRET'])
-            ->add('mail', TextType::class, ['label' => 'Email'])
-            ->add('web', TextType::class, ['label' => 'Site Web'])
+            ->add('email', TextType::class, ['label' => 'Email'])
+            ->add('webUrl', TextType::class, ['label' => 'Site Web'])
             ->add('deliveryTime', TextType::class, ['label' => 'Délai de livraison'])
-            ->add('score', TextType::class, ['label' => 'Score'])
-            ->add('submit', SubmitType::class, ['label' => 'Enregistrer']);
+            ->add('note', TextType::class, ['label' => 'Note'])
+            ->add('submit', SubmitType::class, ['label' => 'Ajouter']);
     }
     public function configureOptions(OptionsResolver $resolver)
     {

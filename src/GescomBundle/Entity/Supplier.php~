@@ -66,9 +66,9 @@ class Supplier
     /**
      * @var string
      *
-     * @ORM\Column(name="welUrl", type="string", length=255)
+     * @ORM\Column(name="webUrl", type="string", length=255)
      */
-    private $welUrl;
+    private $webUrl;
 
     /**
      * @var int
@@ -357,5 +357,29 @@ class Supplier
     public function getProductSupplier()
     {
         return $this->productSupplier;
+    }
+
+    /**
+     * Set webUrl
+     *
+     * @param string $webUrl
+     *
+     * @return Supplier
+     */
+    public function setWebUrl($webUrl)
+    {
+        $this->webUrl = $webUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get webUrl
+     *
+     * @return string
+     */
+    public function getWebUrl()
+    {
+        return $this->webUrl;
     }
 }

@@ -1,0 +1,19 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Ajouter un produit{% endblock %}
+
+{% block body %}
+
+    <section id="category_addPage" class="container">
+        {# Button to add new product #}
+        <a href="/categorie/" class="waves-effect waves-light btn">
+            <i class="material-icons left">list</i>
+            Voir la liste des categories
+        </a>
+
+        <div id="product_add" class="col s12">
+            {{ form(form) }}
+        </div>
+    </section>
+
+{% endblock %}
