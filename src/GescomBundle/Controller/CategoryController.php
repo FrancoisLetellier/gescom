@@ -45,7 +45,6 @@ class CategoryController extends Controller
             $em->flush();
         }
 
-
         return $this->render('GescomBundle:Pages/Category:category_add.html.twig', array(
             'form' => $form->createView(),
         ));
