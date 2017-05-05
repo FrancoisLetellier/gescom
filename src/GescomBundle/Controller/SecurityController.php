@@ -17,6 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class SecurityController extends Controller
 {
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/", name="userArea")
      */
     public function indexAction()
@@ -27,8 +29,7 @@ class SecurityController extends Controller
             'title' => 'Erreur',
             'text' => 'Vous n\'avez pas accès à cette page, veuillez vous connecter !'
         );
-
-
+        
         return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
             'accountOnline' => $accountOnline,
             'return' => $msgReturn,
@@ -38,6 +39,7 @@ class SecurityController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/inscription", name="register")
      */
     public function addAction(Request $request)
@@ -65,7 +67,11 @@ class SecurityController extends Controller
         ));
     }
 
+
     /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/connexion", name="login")
      */
     public function loginAction(Request $request)
@@ -82,6 +88,17 @@ class SecurityController extends Controller
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/deconnexion", name="redirectLogout")
+     */
+    public function redirectLogoutAction(Request $request)
+    {
+        return $this->redirectToRoute('logout');
     }
 
 

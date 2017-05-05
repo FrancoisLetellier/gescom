@@ -35,6 +35,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir un mot de passe")
+     * @Assert\Length(max=4096)
      */
     private $plainPassword;
 
