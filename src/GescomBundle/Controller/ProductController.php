@@ -10,21 +10,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-/**
- * @Route("/produit", name="product")
- */
 class ProductController extends Controller
 {
     /**
-     * @Route("/1", name="productIndex")
-     */
-    public function temporaryRedirection()
-    {
-        return $this->redirectToRoute('productList');
-    }
-
-    /**
-     * @Route("/{page}", name="productList")
+     * @Route("/produit/{page}", name="productList")
      */
     public function listProductAction($page = 1)
     {

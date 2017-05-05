@@ -8,6 +8,7 @@
             <li><a href="{{ path('categoryList') }}">Categories</a></li>
             <li><a href="{{ path('supplierList') }}">Fournisseurs</a></li>
             <li><a href="{{ path('userArea') }}">Mon compte</a></li>
+            {% if is_granted('ROLE_USER') %}<li><a href="{{ path('logout') }}">Déconnexion</a></li>{% endif %}
         </ul>
         <ul class="side-nav" id="mobile-demo">
             <li><a href="/">Accueil</a></li>
@@ -15,6 +16,7 @@
             <li><a href="{{ path('categoryList') }}">Catégories</a></li>
             <li><a href="{{ path('supplierList') }}">fournisseurs</a></li>
             <li><a href="{{ path('userArea') }}">Mon compte</a></li>
+            {% if is_granted('ROLE_USER') %}<li><a href="{{ path('logout') }}">Déconnexion</a></li>{% endif %}
         </ul>
     </div>
 </nav>
