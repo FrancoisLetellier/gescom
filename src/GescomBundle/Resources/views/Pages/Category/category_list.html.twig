@@ -10,11 +10,13 @@
             </div>
         </div>
 
-        {# Button to add new product #}
-        <a href="/categorie/nouveau" class="waves-effect waves-light btn add_btn">
-            <i class="material-icons left">launch</i>
-            Ajouter une nouvelle catégorie
-        </a>
+        {% if is_granted('ROLE_MODERATOR') %}
+            {# Button to add new category #}
+            <a href="{{ path('categoryAdd') }}" class="waves-effect waves-light btn add_btn">
+                <i class="material-icons left">launch</i>
+                Ajouter une nouvelle catégorie
+            </a>
+        {% endif %}
 
         <div class="row">
             <div class="col s12">
@@ -39,10 +41,12 @@
             </div>
         </div>
 
-        {# Button to add new product #}
-        <a href="/categorie/nouveau" class="waves-effect waves-light btn add_btn">
-            <i class="material-icons left">launch</i>
-            Ajouter une nouvelle catégorie
-        </a>
+        {% if is_granted('ROLE_MODERATOR') %}
+            {# Button to add new category #}
+            <a href="{{ path('categoryAdd') }}" class="waves-effect waves-light btn add_btn">
+                <i class="material-icons left">launch</i>
+                Ajouter une nouvelle catégorie
+            </a>
+        {% endif %}
     </section>
 {% endblock %}

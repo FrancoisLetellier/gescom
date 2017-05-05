@@ -7,7 +7,7 @@ use GescomBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 /**
  * Class SupplierController
  * @package GescomBundle\Controller
@@ -30,6 +30,8 @@ class CategoryController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/nouveau", name="categoryAdd")
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
      */
     public function addAction(Request $request)
     {

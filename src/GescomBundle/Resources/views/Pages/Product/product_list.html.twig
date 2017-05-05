@@ -10,11 +10,13 @@
             </div>
         </div>
 
-        {# Button to add new product #}
-        <a href="/produit/nouveau" class="waves-effect waves-light btn add_product_btn">
-            <i class="material-icons left">launch</i>
-            Ajouter un nouveau produit
-        </a>
+        {% if is_granted('ROLE_VENDOR') %}
+            {# Button to add new product #}
+            <a href="{{ path('productAdd') }}" class="waves-effect waves-light btn add_product_btn">
+                <i class="material-icons left">launch</i>
+                Ajouter un nouveau produit
+            </a>
+        {% endif %}
 
         <div class="row">
             <div class="col s12">
@@ -28,21 +30,21 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for product in products %}
-                        {% if product.ProductSupplier is empty %}
-                        {% else %}
-                            <tr>
-                                <td>{{ product.id }}</td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.category.name }}</td>
-                                <td>
-                                    {% for supplier in product.productSupplier %}
-                                        <span class="supplier-item">{{ supplier.supplier.name }}</span>
-                                    {% endfor %}
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
+                        {% for product in products %}
+                            {% if product.ProductSupplier is empty %}
+                            {% else %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.category.name }}</td>
+                                    <td>
+                                        {% for supplier in product.productSupplier %}
+                                            <span class="supplier-item">{{ supplier.supplier.name }}</span>
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -50,10 +52,12 @@
 
         {% include 'GescomBundle:Elements:pagination.html.twig' %}
 
-        {# Button to add new product #}
-        <a href="/produit/nouveau" class="waves-effect waves-light btn add_product_btn">
-            <i class="material-icons left">launch</i>
-            Ajouter un nouveau produit
-        </a>
+        {% if is_granted('ROLE_VENDOR') %}
+            {# Button to add new product #}
+            <a href="{{ path('productAdd') }}" class="waves-effect waves-light btn add_product_btn">
+                <i class="material-icons left">launch</i>
+                Ajouter un nouveau produit
+            </a>
+        {% endif %}
     </section>
 {% endblock %}

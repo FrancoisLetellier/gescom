@@ -17,7 +17,7 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
      * @param int $maxByPage
      * @return Paginator
      */
-    public function getListByPage($page = 1, $maxByPage = 20)
+    public function getListByPage($page = 1, $maxByPage = 0)
     {
         $builder = $this->createQueryBuilder('p')
             ->setFirstResult(($page-1) * $maxByPage)

@@ -8,12 +8,21 @@ use GescomBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * @Route("/produit", name="product")
  */
 class ProductController extends Controller
 {
+    /**
+     * @Route("/1", name="productIndex")
+     */
+    public function temporaryRedirection()
+    {
+        return $this->redirectToRoute('productList');
+    }
+
     /**
      * @Route("/{page}", name="productList")
      */
@@ -28,15 +37,11 @@ class ProductController extends Controller
             'route_params' => array()
         );
 
-        $product = $this->getDoctrine()->getRepository('GescomBundle:Product')
-            ->getListByPage($page, $maxProduct);
-
         $products = $this->getDoctrine()->getRepository('GescomBundle:Product')
             ->getListByPage($page, $maxProduct);
 
 
         return $this->render('GescomBundle:Pages/Product:product_list.html.twig', array(
-            'articles' => $product,
             'pagination' => $pagination,
             'products'  => $products,
         ));
@@ -46,6 +51,8 @@ class ProductController extends Controller
      * @Route("/nouveau", name="productAdd")
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_VENDOR')")
      */
     public function addProductAction(Request $request)
     {

@@ -7,6 +7,7 @@ use GescomBundle\Form\SupplierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class SupplierController
@@ -30,6 +31,8 @@ class SupplierController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/nouveau", name="supplierAdd")
+     *
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function addAction(Request $request)
     {
