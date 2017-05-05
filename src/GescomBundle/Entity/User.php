@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="GescomBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Ce nom de compte est déjà utilisé")
  */
 class User
 {
@@ -28,29 +29,17 @@ class User
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=60, unique=true)
+     * @Assert\NotBlank(message="Vous devez entrer un nom d'utilisateur")
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, unique=true)
-     */
-    private $email;
-
-    /**
-     * @Assert\NotBlank()
-     * @Assert\Length(max=4096)
-     */
-    private $plainPassword;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=64)
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez saisir un mot de passe")
      */
     private $password;
-    
 
     /**
      * Get id
@@ -119,7 +108,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        $this->password = sha1($password);
 
         return $this;
     }
@@ -132,22 +121,6 @@ class User
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    /**
-     * @param mixed $plainPassword
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
     }
 
 }

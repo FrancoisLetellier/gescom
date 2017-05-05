@@ -1,0 +1,8 @@
+{% macro alertBox(type, title, text) %}
+
+    <div class="msg-alert-area {{ type }}">
+        <p class="msg-alert-title">{{ title }}</p>
+        <p class="msg-alert-text">{{ text }}</p>
+    </div>
+
+{% endmacro %}

@@ -1,4 +1,16 @@
 /**
+ * Generic Area
+ */
+.be-flex {
+  display: flex; }
+
+.spaceIt-around {
+  justify-content: space-around; }
+
+.spaceIt-between {
+  justify-content: space-between; }
+
+/**
  * General Areal
  */
 .container {
@@ -25,6 +37,23 @@ a i.material-icons {
   padding: 1rem 0; }
 
 /**
+ * Header Area
+ */
+header .nav-wrapper {
+  background-color: #b7a1d9; }
+  header .nav-wrapper .brand-logo {
+    padding-left: 1rem;
+    color: #484848; }
+  header .nav-wrapper ul li a {
+    color: #484848; }
+
+#account_top_bar #accountCallInfo ul {
+  display: flex;
+  list-style-type: none; }
+  #account_top_bar #accountCallInfo ul li {
+    padding: 0 1rem; }
+
+/**
  * Form Area
  */
 input[type="checkbox"]:checked + label:before {
@@ -38,17 +67,31 @@ form input:focus {
   border-bottom: 1px solid #b7a1d9 !important;
   box-shadow: 0 1px 0 0 #b7a1d9 !important; }
 
-/**
- * Header Area
- */
-header .nav-wrapper {
-  background-color: #b7a1d9; }
-  header .nav-wrapper .brand-logo {
-    padding-left: 1rem;
-    color: #484848; }
-  header .nav-wrapper ul li a {
-    color: #484848; }
+.msg-alert-area {
+  border: 1px solid rgba(50, 50, 50, 0.5);
+  border-radius: 3px;
+  box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.5);
+  color: #ffffff;
+  padding: 2rem 0; }
+  .msg-alert-area .msg-alert-title {
+    font-size: 2rem;
+    padding: 0 1rem;
+    margin: 0; }
+  .msg-alert-area .msg-alert-text {
+    padding: 0 1rem;
+    margin: 0; }
 
 /**
- * Footer Area
+ * Alert colors
  */
+.error {
+  background-color: #ff7479; }
+
+.warning {
+  background-color: #ffff68; }
+
+.success {
+  background-color: #7aff7c; }
+
+.button-area {
+  padding: 1rem 0; }

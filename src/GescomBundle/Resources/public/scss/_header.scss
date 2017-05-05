@@ -1,0 +1,22 @@
+/**
+ * Header Area
+ */
+header {
+
+  .nav-wrapper {
+    background-color: $color1;
+
+    .brand-logo {
+      padding-left: 1rem;
+      color: $color3;
+    }
+
+    ul {
+      li {
+        a {
+          color: $color3;
+        }
+      }
+    }
+  }
+}

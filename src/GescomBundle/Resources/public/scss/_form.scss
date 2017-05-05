@@ -1,0 +1,22 @@
+/**
+ * Form Area
+ */
+input[type="checkbox"]:checked+label:before {
+  border-right: 2px solid $color1;
+  border-bottom: 2px solid $color1;
+}
+form {
+  ul {
+    li {
+      span {
+        color: $color1!important;
+      }
+    }
+  }
+  input {
+    &:focus {
+      border-bottom: 1px solid $color1!important;
+      box-shadow: 0 1px 0 0 $color1!important;
+    }
+  }
+}

@@ -1,21 +1,21 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
 security:
     encoders:
-        GescomBundle\Entity\User:
-            algorithm: bcrypt
+        Symfony\Component\Security\Core\User\User: sha1
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    user: { password: userpass, roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
-        our_db_provider:
-            entity:
-                class: GescomBundle:User
-                property: email
-                # if you're using multiple entity managers
-                # manager_name: customer
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -24,15 +24,16 @@ security:
             security: false
 
         main:
-            anonymous: ~
-
             pattern: ^/
-            http_basic: ~
-            provider: our_db_provider
+            anonymous: ~
 
             form_login:
                 login_path: login
                 check_path: login
+
+            logout:
+                path: logout
+                target: /mon-compte
             # activate different ways to authenticate
 
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate

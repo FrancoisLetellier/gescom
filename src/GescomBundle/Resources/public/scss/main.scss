@@ -1,4 +1,12 @@
 @import 'settings';
 
-@import 'generalPartials';
+@import 'generic';
 
+@import 'generalPartials';
+@import 'header';
+
+@import 'userStyle';
+
+@import 'form';
+@import 'msgAlert';
+@import 'button';
