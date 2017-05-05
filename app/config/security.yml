@@ -1,6 +1,8 @@
 security:
     encoders:
-        Symfony\Component\Security\Core\User\User: sha1
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+        GescomBundle\Entity\User: bcrypt
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
@@ -14,8 +16,14 @@ security:
                     user: { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
+        db_provider:
+            entity:
+                class: GescomBundle:User
+                property: username
+
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/mon-compte/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -23,21 +31,19 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        main_login:
+            pattern:   ^/mon-compte/connexion$
+            anonymous: true
+
         main:
             pattern: ^/
             anonymous: ~
+            provider: db_provider
 
             form_login:
                 login_path: login
-                check_path: login
+                check_path: login_check
 
             logout:
                 path: logout
                 target: /mon-compte
-            # activate different ways to authenticate
-
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~

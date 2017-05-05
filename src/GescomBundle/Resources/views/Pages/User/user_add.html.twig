@@ -4,6 +4,13 @@
 
 {% block body %}
     <div id="user_register">
-        {{ form(form) }}
+        {{ form_start(form) }}
+
+        {{ form_row(form.username) }}
+        {{ form_row(form.plainPassword.first) }}
+        {{ form_row(form.plainPassword.second) }}
+        {{ form_row(form.submit) }}
+
+        {{ form_end(form) }}
     </div>
 {% endblock %}

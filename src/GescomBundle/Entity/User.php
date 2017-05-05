@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="GescomBundle\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Ce nom de compte est déjà utilisé")
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -34,12 +34,28 @@ class User
     private $username;
 
     /**
+     * @Assert\NotBlank(message="Veuillez saisir un mot de passe")
+     */
+    private $plainPassword;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez saisir un mot de passe")
      */
     private $password;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = true;
+        // may not be needed, see section on salt below
+        // $this->salt = md5(uniqid(null, true));
+    }
 
     /**
      * Get id
@@ -76,27 +92,23 @@ class User
     }
 
     /**
-     * Set email
+     * Set plainPassword
      *
-     * @param string $email
-     *
-     * @return User
+     * @param $password
      */
-    public function setEmail($email)
+    public function setPlainPassword($password)
     {
-        $this->email = $email;
-
-        return $this;
+        $this->plainPassword = $password;
     }
 
     /**
-     * Get email
+     * Get plainPassword
      *
-     * @return string
+     * @return mixed
      */
-    public function getEmail()
+    public function getPlainPassword()
     {
-        return $this->email;
+        return $this->plainPassword;
     }
 
     /**
@@ -108,7 +120,7 @@ class User
      */
     public function setPassword($password)
     {
-        $this->password = sha1($password);
+        $this->password = $password;
 
         return $this;
     }
@@ -123,4 +135,73 @@ class User
         return $this->password;
     }
 
+    /**
+     * @return null
+     */
+    public function getSalt()
+    {
+        // The bcrypt algorithm doesn't require a separate salt.
+        // You *may* need a real salt if you choose a different encoder.
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
 }

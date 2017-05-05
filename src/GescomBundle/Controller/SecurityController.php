@@ -3,6 +3,7 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\User;
+use GescomBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,8 @@ class SecurityController extends Controller
             'title' => 'Erreur',
             'text' => 'Vous n\'avez pas accès à cette page, veuillez vous connecter !'
         );
+
+
         return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
             'accountOnline' => $accountOnline,
             'return' => $msgReturn,
@@ -45,8 +48,11 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            $password = $form['password']->getData();
+
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -64,19 +70,17 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('userHome');
-        }
-
-        // Le service authentication_utils permet de récupérer le nom d'utilisateur
-        // et l'erreur dans le cas où le formulaire a déjà été soumis mais était invalide
-        // (mauvais mot de passe par exemple)
         $authenticationUtils = $this->get('security.authentication_utils');
 
-        return $this->render('GescomBundle:Pages/User:user_connect.html.twig', array(
-            'last_username' => $authenticationUtils->getLastUsername(),
-            'error'         => $authenticationUtils->getLastAuthenticationError(),
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('@Gescom/Pages/User/user_connect.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
         ));
     }
 
