@@ -3,14 +3,17 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div id="user_register">
-        {{ form_start(form) }}
+    {% if is_granted('ROLE_USER') %}
+    {% else %}
+        <div id="user_register">
+            {{ form_start(form) }}
 
-        {{ form_row(form.username) }}
-        {{ form_row(form.plainPassword.first) }}
-        {{ form_row(form.plainPassword.second) }}
-        {{ form_row(form.submit) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.plainPassword.first) }}
+            {{ form_row(form.plainPassword.second) }}
+            {{ form_row(form.submit) }}
 
-        {{ form_end(form) }}
-    </div>
+            {{ form_end(form) }}
+        </div>
+    {% endif %}
 {% endblock %}

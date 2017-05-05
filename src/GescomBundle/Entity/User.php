@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity(repositoryClass="GescomBundle\Repository\UserRepository")
  * @UniqueEntity(fields="username", message="Ce nom de compte est déjà utilisé")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
     /**
      * @var int
@@ -45,6 +45,16 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\Column(name="salt", type="string", length=255)
+     */
+    private $salt;
+
+    /**
+     * @ORM\Column(name="roles", type="array")
+     */
+    private $roles = array();
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -137,21 +147,41 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return null
+     * Get salt
+     *
+     * @return mixed
      */
     public function getSalt()
     {
-        // The bcrypt algorithm doesn't require a separate salt.
-        // You *may* need a real salt if you choose a different encoder.
-        return null;
+        return $this->salt;
     }
 
     /**
+     * Set salt
+     *
+     * @param $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+    /**
+     * Get roles
+     *
      * @return array
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return $this->roles;
+    }
+
+    /**
+     *  Set roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
     
     public function eraseCredentials()

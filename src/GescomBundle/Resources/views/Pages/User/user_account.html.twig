@@ -5,20 +5,20 @@
 {% block body %}
     <div id="account_top_bar" class="be-flex spaceIt-between">
         <div class="button-area be-flex spaceIt-between">
-            <a href="{{ path('register') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>S'inscrire</a>
-            <a href="{{ path('login') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Se connecter</a>
+            {% if not is_granted('ROLE_USER') %}
+                <a href="{{ path('register') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>S'inscrire</a>
+                <a href="{{ path('login') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Se connecter</a>
+            {% else %}
+                <a href="{{ path('logout') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Se déconnecter</a>
+            {% endif %}
         </div>
-        <div id="accountCallInfo">
-            <ul>
-                <li><span>Nom d'utilisateur : </span>...</li>
-                <li><span>Mot de passe : </span>...</li>
-            </ul>
-        </div>
+
+        {% if is_granted('ROLE_USER') %}
+            <div id="accountCallInfo">
+                <ul>
+                    <li><span>Nom d'utilisateur : </span>{{ app.user.username }}</li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
-    {% if return is empty %}
-    {% else %}
-        {# if User was not connect #}
-        {% import '@Gescom/Elements/macro_alert.html.twig' as box %}
-        {{ box.alertBox(return.type, return.title, return.text) }}
-    {% endif %}
 {% endblock %}

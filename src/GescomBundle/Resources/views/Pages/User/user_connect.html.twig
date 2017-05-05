@@ -3,29 +3,32 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <div id="user_login">
-        {# S'il y a une erreur, on l'affiche dans un joli cadre #}
-        {% if error %}
-            {% import '@Gescom/Elements/macro_alert.html.twig' as box %}
-            {{ box.alertBox('error', 'Erreur : ', error.message) }}
-        {% endif %}
+    {% if is_granted('ROLE_USER') %}
+    {% else %}
+        <div id="user_login">
+            {# S'il y a une erreur, on l'affiche dans un joli cadre #}
+            {% if error %}
+                {% import '@Gescom/Elements/macro_alert.html.twig' as box %}
+                {{ box.alertBox('error', 'Erreur : ', error.message) }}
+            {% endif %}
 
-        {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
-        <form action="{{ path('login_check') }}" method="post">
+            {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
+            <form action="{{ path('login_check') }}" method="post">
 
-            <div class="input-field col s12">
-                <input type="text" id="username" name="_username" value="{{ last_username }}" />
-                <label for="_username">Login :</label>
-            </div>
+                <div class="input-field col s12">
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+                    <label for="_username">Login :</label>
+                </div>
 
-            <div class="input-field col s12">
-                <input type="password" id="password" name="_password" />
-                <label for="_password">Mot de passe :</label>
-            </div>
+                <div class="input-field col s12">
+                    <input type="password" id="password" name="_password" />
+                    <label for="_password">Mot de passe :</label>
+                </div>
 
-            <div class="input-field col s12">
-                <input type="submit" value="Connexion" />
-            </div>
-        </form>
-    </div>
+                <div class="input-field col s12">
+                    <input type="submit" value="Connexion" />
+                </div>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}

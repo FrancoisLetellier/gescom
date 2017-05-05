@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class SecurityController
@@ -29,7 +31,7 @@ class SecurityController extends Controller
             'title' => 'Erreur',
             'text' => 'Vous n\'avez pas accès à cette page, veuillez vous connecter !'
         );
-        
+
         return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
             'accountOnline' => $accountOnline,
             'return' => $msgReturn,
@@ -44,6 +46,12 @@ class SecurityController extends Controller
      */
     public function addAction(Request $request)
     {
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            // Sinon on déclenche une exception « Accès interdit »
+            return $this->redirectToRoute('userArea');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->getErrors();
@@ -53,7 +61,10 @@ class SecurityController extends Controller
 
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
+
+            $user->setSalt('');
             $user->setPassword($password);
+            $user->setRoles(array('ROLE_USER'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -76,6 +87,12 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            // Sinon on déclenche une exception « Accès interdit »
+            return $this->redirectToRoute('userArea');
+        }
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         // get the login error if there is one
@@ -89,17 +106,5 @@ class SecurityController extends Controller
             'error'         => $error,
         ));
     }
-
-    /**
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @Route("/deconnexion", name="redirectLogout")
-     */
-    public function redirectLogoutAction(Request $request)
-    {
-        return $this->redirectToRoute('logout');
-    }
-
 
 }
