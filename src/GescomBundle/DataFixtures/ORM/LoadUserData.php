@@ -31,9 +31,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         $admin = new User();
         $admin->setUsername('admin');
-        $password = $this->get('security.password_encoder')
-            ->encodePassword($admin, 'admin');
-        $admin->setPassword($password);
+        $admin->setPassword(password_hash("admin", PASSWORD_BCRYPT));
         $admin->setSalt('');
         $admin->setRoles(array('ROLE_ADMIN'));
         $em->persist($admin);
@@ -43,9 +41,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         $moderator = new User();
         $moderator->setUsername('moderator');
-        $password = $this->get('security.password_encoder')
-            ->encodePassword($moderator, 'moderator');
-        $moderator->setPassword($password);
+        $moderator->setPassword(password_hash("moderator", PASSWORD_BCRYPT));
         $moderator->setSalt('');
         $moderator->setRoles(array('ROLE_MODERATOR'));
         $em->persist($moderator);
@@ -55,9 +51,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         $vendor = new User();
         $vendor->setUsername('vendor');
-        $password = $this->get('security.password_encoder')
-            ->encodePassword($vendor, 'vendor');
-        $vendor->setPassword($password);
+        $vendor->setPassword(password_hash("vendor", PASSWORD_BCRYPT));
         $vendor->setSalt('');
         $vendor->setRoles(array('ROLE_VENDOR'));
         $em->persist($vendor);
@@ -67,9 +61,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         $user = new User();
         $user->setUsername('user');
-        $password = $this->get('security.password_encoder')
-            ->encodePassword($user, 'user');
-        $user->setPassword($password);
+        $user->setPassword(password_hash("user", PASSWORD_BCRYPT));
         $user->setSalt('');
         $user->setRoles(array('ROLE_USER'));
         $em->persist($user);
@@ -81,6 +73,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     }
     public function getOrder()
     {
-        return 2;
+        return 5;
     }
 }

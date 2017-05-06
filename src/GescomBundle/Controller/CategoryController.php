@@ -45,6 +45,7 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()){
             $em->persist($category);
             $em->flush();
+
         }
 
         return $this->render('GescomBundle:Pages/Category:category_add.html.twig', array(

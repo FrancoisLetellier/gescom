@@ -17,15 +17,21 @@
 }
 a {
   i.material-icons {
-    color: $color3!important;
+    color: $color3;
   }
 }
 .supplier-item {
   display: block;
   width: 100%;
 }
-#product_listPagination {
+.listPagination {
   text-align: center;
   padding: 1rem 0;
+
+  a {
+    i {
+      color: $color2;
+    }
+  }
 }
 

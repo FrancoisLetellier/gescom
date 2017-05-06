@@ -17,22 +17,34 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SupplierController extends Controller
 {
     /**
-     * @Route("/", name="supplierList")
+     * @Route("/{page}", name="supplierList")
      */
-    public function indexAction()
+    public function indexAction($page = 1)
     {
-        $suppliers = $this->getDoctrine()->getRepository('GescomBundle:Supplier')->findAll();
+        $maxSupplier = 20;
+        $supplier_count = 500;
+        $pagination = array(
+            'page' => $page,
+            'route' => 'supplierList',
+            'pages_count' => ceil($supplier_count / $maxSupplier),
+            'route_params' => array()
+        );
 
-        return $this->render('GescomBundle:Pages/Supplier:supplier_list.html.twig', [
+        $suppliers = $this->getDoctrine()->getRepository('GescomBundle:Supplier')
+            ->getListByPage($page, $maxSupplier);
+
+
+        return $this->render('GescomBundle:Pages/Supplier:supplier_list.html.twig', array(
+            'pagination' => $pagination,
             'suppliers'  => $suppliers,
-        ]);
+        ));
     }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/nouveau", name="supplierAdd")
      *
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Security("has_role('ROLE_MODERATOR')")
      */
     public function addAction(Request $request)
     {

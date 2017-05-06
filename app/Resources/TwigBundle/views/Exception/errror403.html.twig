@@ -1,0 +1,15 @@
+{% extends 'GescomBundle:Default:base.html.twig' %}
+
+{% block body %}
+    <h1>Vous n'avez pas accès à cette page !</h1>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {# ... #}
+    {% endif %}
+
+    <p>
+        Vous n'avez pas accès à cette page, si vous n'êtes pas loger, merci de le faire.
+        Sinon vérifier votre addresse URL ou retourner à l'accueil.
+        <a href="{{ path('home') }}">Retourner à l'accueil</a>.
+    </p>
+{% endblock %}

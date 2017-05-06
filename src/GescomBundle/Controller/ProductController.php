@@ -10,10 +10,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
+/**
+ * @Route("/produit", name="productList")
+ */
 class ProductController extends Controller
 {
     /**
-     * @Route("/produit/{page}", name="productList")
+     * @Route("/{page}", name="productList")
      */
     public function listProductAction($page = 1)
     {
@@ -26,6 +29,7 @@ class ProductController extends Controller
             'route_params' => array()
         );
 
+        $monUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $products = $this->getDoctrine()->getRepository('GescomBundle:Product')
             ->getListByPage($page, $maxProduct);
 
@@ -33,6 +37,7 @@ class ProductController extends Controller
         return $this->render('GescomBundle:Pages/Product:product_list.html.twig', array(
             'pagination' => $pagination,
             'products'  => $products,
+            'url' => $monUrl
         ));
     }
 

@@ -18,5 +18,13 @@ header {
         }
       }
     }
+
+    .side-nav {
+      li {
+        a {
+          color: $color2;
+        }
+      }
+    }
   }
 }

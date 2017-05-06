@@ -10,9 +10,9 @@
             </div>
         </div>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% if is_granted('ROLE_MODERATOR') %}
             {# Button to add new product #}
-            <a href="/fournisseur/nouveau" class="waves-effect waves-light btn add_btn">
+            <a href="{{ path('supplierAdd') }}" class="waves-effect waves-light btn add_btn">
                 <i class="material-icons left">launch</i>
                 Ajouter un nouveau fournisseur
             </a>
@@ -49,9 +49,11 @@
             </div>
         </div>
 
-        {% if is_granted('ROLE_ADMIN') %}
+        {% include 'GescomBundle:Elements:pagination.html.twig' %}
+
+        {% if is_granted('ROLE_MODERATOR') %}
         {# Button to add new product #}
-        <a href="/fournisseur/nouveau" class="waves-effect waves-light btn add_btn">
+        <a href="{{ path('supplierAdd') }}" class="waves-effect waves-light btn add_btn">
             <i class="material-icons left">launch</i>
             Ajouter un nouveau fournisseur
         </a>
