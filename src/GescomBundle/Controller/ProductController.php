@@ -4,6 +4,7 @@ namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\Product;
 use GescomBundle\Entity\ProductSupplier;
+use GescomBundle\Form\ProductDeleteType;
 use GescomBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -16,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class ProductController extends Controller
 {
     /**
-     * @Route("/{page}", name="productList")
+     * @Route("/liste/{page}", name="productList")
      */
     public function listProductAction($page = 1)
     {
@@ -57,7 +58,7 @@ class ProductController extends Controller
         $form->getErrors();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form  ->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
             $suppliers = $product->getProductSupplier()["name"];
             // suppliers are stored with a top level "name" unecessary
             // we must remove this "name" level with this custom method
@@ -80,6 +81,79 @@ class ProductController extends Controller
 
         return $this->render('GescomBundle:Pages/Product:product_add.html.twig', array(
             'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/{productId}/modification", name="productUpdate")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function updateProductByModerator(Request $request, $productId)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository('GescomBundle:Product')
+            ->find($productId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(ProductType::class, $product);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $suppliers = $product->getProductSupplier()["name"];
+            // suppliers are stored with a top level "name" unecessary
+            // we must remove this "name" level with this custom method
+            $product->resetProductSupplier();
+            foreach($suppliers as $supplier){
+                // create a new link entity
+                $productSupplier = new ProductSupplier();
+                // set product
+                $productSupplier->setProduct($product);
+                // set supplier
+                $productSupplier->setSupplier($supplier);
+                $em->persist($productSupplier);
+                // add supplier to product
+                $product->addProductSupplier($productSupplier);
+            }
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('productList');
+        }
+
+        return $this->render('GescomBundle:Pages/Product:product_update.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/{productId}/suppression", name="productDelete")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function deleteProductByModerator(Request $request, $productId)
+    {
+        $product = $this->getDoctrine()
+            ->getRepository('GescomBundle:Product')
+            ->find($productId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(ProductDeleteType::class, $product);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->remove($product);
+            $em->flush();
+        }
+
+        return $this->render('GescomBundle:Pages/Product:product_delete.html.twig', array(
+            'form'      => $form->createView(),
+            'product'   => $product,
         ));
     }
 }

@@ -1,0 +1,67 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Supprimer un produit{% endblock %}
+
+{% block body %}
+
+    <section id="product_Page">
+        <div class="row">
+            <div class="col s12">
+                <h4>Suppression d'un produit</h4>
+            </div>
+        </div>
+
+        <div class="top-page-bar">
+            {# Button to see a product list #}
+            <a href="{{ path('productList') }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>
+                Retourner à la liste des produits
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="information-by-id">
+                {# id info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Id du produit : </span>
+                    <span class="value-info">{{ product.id }}</span>
+                </div>
+                {# name info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Nom du produit : </span>
+                    <span class="value-info">{{ product.name }}</span>
+                </div>
+                {# category info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Catégorie : </span>
+                    <span class="value-info">{{ product.category }}</span>
+                </div>
+                {# supplier info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Fournisseur : </span>
+                    <div class="chip-info-group">
+                        {% for supplier in product.productSupplier %}
+                            <div class="chip label-info-chip">
+                                <img src="{{ asset('assets/img/users/avatar/avatar_man.png') }}" alt="">
+                                {{ supplier.supplier.name }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Etes vous certains de vouloir supprimer le produit ?</p>
+            {{ form_start(form) }}
+            {{ form_widget(form.submit, { 'attr': {'class': 'waves-effect waves-light btn error'} }) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous avez aussi la possibilité de le modifier</p>
+            <a href="/{{ product.id }}/modification" class="waves-effect waves-light btn warning">Modifier le produit !</a>
+        </div>
+
+    </section>
+
+{% endblock %}

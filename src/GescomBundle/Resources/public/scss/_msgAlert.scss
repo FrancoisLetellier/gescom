@@ -19,11 +19,11 @@
  * Alert colors
  */
 .error {
-  background-color: $alterFalseColor;
+  background-color: $alterFalseColor!important;
 }
 .warning {
-  background-color: $alertWarningColor;
+  background-color: $alertWarningColor!important;
 }
 .success {
-  background-color: $alertValidColor;
+  background-color: $alertValidColor!important;
 }

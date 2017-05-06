@@ -3,21 +3,22 @@
 {% block title %}Liste des produits{% endblock %}
 
 {% block body %}
-    <section id="product_listPage">
+    <section id="product_Page">
         <div class="row">
             <div class="col s12">
-                <h4>Produits</h4>
+                <h3>Liste des produits</h3>
             </div>
         </div>
 
-        {% if is_granted('ROLE_VENDOR') %}
-            {# Button to add new product #}
-            <a href="{{ path('productAdd') }}" class="waves-effect waves-light btn add_product_btn">
-                <i class="material-icons left">launch</i>
-                Ajouter un nouveau produit
-            </a>
-        {% endif %}
-        {{ url }}
+        <div class="top-page-bar">
+            {% if is_granted('ROLE_VENDOR') %}
+                {# Button to add new product #}
+                <a href="{{ path('productAdd') }}" class="waves-effect waves-light btn add_product_btn">
+                    <i class="material-icons left">launch</i>
+                    Ajouter un nouveau produit
+                </a>
+            {% endif %}
+        </div>
 
         <div class="row">
             <div class="col s12">
@@ -28,6 +29,10 @@
                         <th>Nom du produit</th>
                         <th>Catégorie</th>
                         <th>Fournisseur</th>
+                        {% if is_granted('ROLE_MODERATOR') %}
+                            <th>Modification</th>
+                            <th>Suppression</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
@@ -40,9 +45,24 @@
                                     <td>{{ product.category.name }}</td>
                                     <td>
                                         {% for supplier in product.productSupplier %}
-                                            <span class="supplier-item">{{ supplier.supplier.name }}</span>
+                                            <div class="chip">
+                                                <img src="{{ asset('assets/img/users/avatar/avatar_man.png') }}" alt="Contact Person">
+                                                {{ supplier.supplier.name }}
+                                            </div>
                                         {% endfor %}
                                     </td>
+                                    {% if is_granted('ROLE_MODERATOR') %}
+                                        <td>
+                                            <a class="table-icon-link" href="/produit/{{ product.id }}/modification">
+                                                <i class="material-icons left table-icon">launch</i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="table-icon-link" href="/produit/{{ product.id }}/suppression">
+                                                <i class="material-icons left table-icon">delete</i>
+                                            </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endif %}
                         {% endfor %}

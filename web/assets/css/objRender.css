@@ -1,0 +1,6 @@
+.information-by-id .box-information-by-id {
+  display: flex;
+  padding: 1rem; }
+  .information-by-id .box-information-by-id .label-info {
+    display: block;
+    width: 22rem; }

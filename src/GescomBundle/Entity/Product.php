@@ -3,6 +3,7 @@
 namespace GescomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -48,6 +49,11 @@ class Product
      */
     private $productSupplier;
 
+    /**
+     * @var boolean $checkToDelete
+     * @Assert\IsTrue(message = "The token is invalid")
+     */
+    private $checkToDelete;
 
     /**
      * Get id
@@ -172,7 +178,28 @@ class Product
         return $this->productSupplier;
     }
 
+    /**
+     * Reset productSupplier
+     */
     public function resetProductSupplier(){
         $this->productSupplier = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * @return bool
+     */
+    public function isCheckToDelete()
+    {
+        return $this->checkToDelete;
+    }
+
+    /**
+     * @param bool $checkToDelete
+     */
+    public function setCheckToDelete($checkToDelete)
+    {
+        $this->checkToDelete = $checkToDelete;
+    }
+
+
 }
