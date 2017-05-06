@@ -6,17 +6,19 @@
     <section id="category_listPage">
         <div class="row">
             <div class="col s12">
-                <h4>Categories</h4>
+                <h3>Categories</h3>
             </div>
         </div>
 
-        {% if is_granted('ROLE_MODERATOR') %}
-            {# Button to add new category #}
-            <a href="{{ path('categoryAdd') }}" class="waves-effect waves-light btn add_btn">
-                <i class="material-icons left">launch</i>
-                Ajouter une nouvelle catégorie
-            </a>
-        {% endif %}
+        <div class="top-page-bar">
+            {% if is_granted('ROLE_VENDOR') %}
+                {# Button to add new product #}
+                <a href="{{ path('categoryAdd') }}" class="waves-effect waves-light btn add_btn">
+                    <i class="material-icons left">launch</i>
+                    Ajouter un nouveau produit
+                </a>
+            {% endif %}
+        </div>
 
         <div class="row">
             <div class="col s12">
@@ -26,6 +28,10 @@
                         <th>Id</th>
                         <th>Nom</th>
                         <th>Description</th>
+                        {% if is_granted('ROLE_MODERATOR') %}
+                            <th>Modification</th>
+                            <th>Suppression</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
@@ -34,10 +40,23 @@
                             <td>{{ category.id }}</td>
                             <td>{{ category.name }}</td>
                             <td>{{ category.description }}</td>
+                            {% if is_granted('ROLE_MODERATOR') %}
+                                <td>
+                                    <a class="table-icon-link" href="/categorie/{{ category.id }}/modification">
+                                        <i class="material-icons left table-icon">launch</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="table-icon-link" href="/categorie/{{ category.id }}/suppression">
+                                        <i class="material-icons left table-icon">delete</i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
             </div>
         </div>
 

@@ -3,7 +3,8 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\Supplier;
-use GescomBundle\Form\SupplierType;
+use GescomBundle\Form\Supplier\SupplierDeleteType;
+use GescomBundle\Form\Supplier\SupplierType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,9 +61,67 @@ class SupplierController extends Controller
             $em->flush();
         }
 
-
         return $this->render('GescomBundle:Pages/Supplier:supplier_add.html.twig', array(
             'form' => $form->createView(),
         ));
     }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/{supplierId}/modification", name="supplierUpdate")
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function updateByModeratorAction(Request $request, $supplierId)
+    {
+        $supplier = $this->getDoctrine()
+            ->getRepository('GescomBundle:Supplier')
+            ->find($supplierId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(SupplierType::class, $supplier);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->persist($supplier);
+            $em->flush();
+            return $this->redirectToRoute('supplierList');
+        }
+
+        return $this->render('GescomBundle:Pages/Supplier:supplier_update.html.twig', array(
+            'form'      => $form->createView(),
+            'supplier'  => $supplier
+        ));
+    }
+
+    /**
+     * @Route("/{supplierId}/suppression", name="supplierDelete")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function deleteProductByModerator(Request $request, $supplierId)
+    {
+        $supplier = $this->getDoctrine()
+            ->getRepository('GescomBundle:Supplier')
+            ->find($supplierId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(SupplierDeleteType::class, $supplier);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->remove($supplier);
+            $em->flush();
+        }
+
+        return $this->render('GescomBundle:Pages/Supplier:supplier_delete.html.twig', array(
+            'form'      => $form->createView(),
+            'supplier'  => $supplier,
+        ));
+    }
+
 }

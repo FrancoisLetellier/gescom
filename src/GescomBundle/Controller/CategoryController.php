@@ -3,7 +3,8 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\Category;
-use GescomBundle\Form\CategoryType;
+use GescomBundle\Form\Category\CategoryDeleteType;
+use GescomBundle\Form\Category\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,8 +49,67 @@ class CategoryController extends Controller
 
         }
 
-        return $this->render('GescomBundle:Pages/Category:category_add.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('GescomBundle:Pages/Category:category_update.html.twig', array(
+            'form'      => $form->createView(),
+            'category'   => $category,
+        ));
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/{categoryId}/modification", name="categoryUpdate")
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function updateByModeratorAction(Request $request, $categoryId)
+    {
+        $category = $this->getDoctrine()
+            ->getRepository('GescomBundle:Category')
+            ->find($categoryId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(CategoryType::class, $category);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('categoryList');
+        }
+
+        return $this->render('GescomBundle:Pages/Category:category_update.html.twig', array(
+            'form'      => $form->createView(),
+            'category'  => $category
+        ));
+    }
+
+    /**
+     * @Route("/{categoryId}/suppression", name="categoryDelete")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_MODERATOR')")
+     */
+    public function deleteProductByModerator(Request $request, $categoryId)
+    {
+        $category = $this->getDoctrine()
+            ->getRepository('GescomBundle:Category')
+            ->find($categoryId);
+        $em = $this->getDoctrine()->getManager();
+
+        $form = $this->createForm(CategoryDeleteType::class, $category);
+        $form->getErrors();
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->remove($category);
+            $em->flush();
+        }
+
+        return $this->render('GescomBundle:Pages/Category:category_delete.html.twig', array(
+            'form'      => $form->createView(),
+            'category'   => $category,
         ));
     }
 }

@@ -1,5 +1,7 @@
 <?php
-namespace GescomBundle\Form;
+
+namespace GescomBundle\Form\Supplier;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -7,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class SupplierListType
- * @package GescomBundle\Form
+ * @package GescomBundle\Form\Supplier
  */
 class SupplierListType extends AbstractType
 {

@@ -1,31 +1,31 @@
 {% extends '@Gescom/Default/base.html.twig' %}
 
-{% block title %}Modifier un produit{% endblock %}
+{% block title %}Modifier un fournisseur{% endblock %}
 
 {% block body %}
 
-    <section id="product_Page">
+    <section id="supplier_Page">
         <div class="row">
             <div class="col s12">
-                <h3>Modification d'un produit</h3>
+                <h3>Modification d'un fournisseur</h3>
             </div>
         </div>
 
         <div class="top-page-bar">
             {# Button to add new product #}
-            <a href="{{ path('productList') }}" class="waves-effect waves-light btn">
+            <a href="{{ path('supplierList') }}" class="waves-effect waves-light btn">
                 <i class="material-icons left">list</i>
-                Retourner à la liste des produits
+                Retourner à la liste des fournisseur
             </a>
         </div>
 
-        <div id="product_update" class="col s12">
+        <div id="supplier_update" class="col s12">
             {{ form(form) }}
         </div>
 
         <div class="col s12 be-flex spaceIt-between">
             <p>Vous pouvez aussi supprimer ce produit</p>
-            <a href="/produit/{{ product.id }}/suppression" class="waves-effect waves-light btn error">Supprimer le produit !</a>
+            <a href="/fournisseur/{{ supplier.id }}/suppression" class="waves-effect waves-light btn error">Supprimer le fournisseur !</a>
         </div>
     </section>
 

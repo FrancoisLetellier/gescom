@@ -4,8 +4,8 @@ namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\Product;
 use GescomBundle\Entity\ProductSupplier;
-use GescomBundle\Form\ProductDeleteType;
-use GescomBundle\Form\ProductType;
+use GescomBundle\Form\Product\ProductDeleteType;
+use GescomBundle\Form\Product\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class ProductController extends Controller
 {
+
     /**
      * @Route("/liste/{page}", name="productList")
      */
@@ -124,7 +125,8 @@ class ProductController extends Controller
         }
 
         return $this->render('GescomBundle:Pages/Product:product_update.html.twig', array(
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
+            'product'   => $product,
         ));
     }
 

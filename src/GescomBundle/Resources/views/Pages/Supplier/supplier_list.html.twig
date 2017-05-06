@@ -6,17 +6,19 @@
     <section id="supplier_listPage">
         <div class="row">
             <div class="col s12">
-                <h4>Fournisseur</h4>
+                <h3>Liste des fournisseurs</h3>
             </div>
         </div>
 
-        {% if is_granted('ROLE_MODERATOR') %}
-            {# Button to add new product #}
-            <a href="{{ path('supplierAdd') }}" class="waves-effect waves-light btn add_btn">
-                <i class="material-icons left">launch</i>
-                Ajouter un nouveau fournisseur
-            </a>
-        {% endif %}
+        <div class="top-page-bar">
+            {% if is_granted('ROLE_VENDOR') %}
+                {# Button to add new product #}
+                <a href="{{ path('supplierAdd') }}" class="waves-effect waves-light btn">
+                    <i class="material-icons left">launch</i>
+                    Ajouter un nouveau fournisseur
+                </a>
+            {% endif %}
+        </div>
 
         <div class="row">
             <div class="col s12">
@@ -30,6 +32,10 @@
                         <th>Code postal</th>
                         <th>Delais de livraison</th>
                         <th>Note</th>
+                        {% if is_granted('ROLE_MODERATOR') %}
+                            <th>Modification</th>
+                            <th>Suppression</th>
+                        {% endif %}
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +48,18 @@
                             <td>{{ supplier.postalCode }}</td>
                             <td>{{ supplier.deliveryTime }}</td>
                             <td>{{ supplier.note }}</td>
+                            {% if is_granted('ROLE_MODERATOR') %}
+                                <td>
+                                    <a class="table-icon-link" href="/fournisseur/{{ supplier.id }}/modification">
+                                        <i class="material-icons left table-icon">launch</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a class="table-icon-link" href="/fournisseur/{{ supplier.id }}/suppression">
+                                        <i class="material-icons left table-icon">delete</i>
+                                    </a>
+                                </td>
+                            {% endif %}
                         </tr>
                     {% endfor %}
                     </tbody>

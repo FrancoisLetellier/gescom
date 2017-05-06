@@ -1,0 +1,65 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Supprimer un fournisseur{% endblock %}
+
+{% block body %}
+
+    <section id="category_Page">
+        <div class="row">
+            <div class="col s12">
+                <h3>Suppression d'un fournisseur</h3>
+            </div>
+        </div>
+
+        <div class="top-page-bar">
+            {# Button to see a product list #}
+            <a href="{{ path('supplierList') }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>
+                Retourner à la liste des fournisseurs
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="information-by-id">
+                {# id info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Id du fournisseur : </span>
+                    <span class="value-info">{{ supplier.id }}</span>
+                </div>
+                {# name info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Nom du fournisseur : </span>
+                    <span class="value-info">{{ supplier.name }}</span>
+                </div>
+                {# email info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Email : </span>
+                    <span class="value-info">{{ supplier.email }}</span>
+                </div>
+                {# town info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Ville : </span>
+                    <span class="value-info">{{ supplier.town }}</span>
+                </div>
+                {# rank info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Note : </span>
+                    <span class="value-info">{{ supplier.note }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Etes vous certains de vouloir supprimer le fournisseur ?</p>
+            {{ form_start(form) }}
+            {{ form_widget(form.submit, { 'attr': {'class': 'waves-effect waves-light btn error'} }) }}
+            {{ form_end(form) }}
+        </div>
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous avez aussi la possibilité de la modifier</p>
+            <a href="/fournisseur/{{ supplier.id }}/modification" class="waves-effect waves-light btn warning">Modifier le fournisseur !</a>
+        </div>
+
+    </section>
+
+{% endblock %}

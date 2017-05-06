@@ -1,0 +1,59 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block body %}
+
+    <section id="product_Page">
+        <div class="row">
+            <div class="col s12">
+                <h4>Modification d'une catégorie</h4>
+            </div>
+        </div>
+
+        <div class="top-page-bar">
+            {# Button to add new product #}
+            <a href="{{ path('categoryList') }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>
+                Retourner à la liste des categories
+            </a>
+        </div>
+
+        <div id="category_update" class="col s12">
+            {{ form(form) }}
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous pouvez aussi supprimer cette catégorie</p>
+            <a href="#modal-delete" class="waves-effect waves-light btn error">Supprimer la catégorie !</a>
+            <div id="modal-delete" class="modal">
+                <div class="modal-content">
+                    <h4>Attention !!!</h4>
+                    <p>Etes vous sur de vouloir supprimer cette catégorie ?</p>
+                    <table class="bordered">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.name }}</td>
+                            <td>{{ category.description }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-action modal-close waves-effect btn btn-flat succes">Annuler</a>
+                    <a href="/categorie/{{ category.id }}/suppression" class="modal-action modal-close waves-effect btn btn-flat error">Confirmer la suppression</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
