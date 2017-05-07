@@ -4,23 +4,31 @@ namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\Product;
 use GescomBundle\Entity\ProductSupplier;
-use GescomBundle\Form\ProductDeleteType;
-use GescomBundle\Form\ProductType;
+use GescomBundle\Form\Product\ProductDeleteType;
+use GescomBundle\Form\Product\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
- * @Route("/produit", name="productList")
+ * Class ProductController
+ * @package GescomBundle\Controller
+ * @Route("/produit", name="productHome")
  */
 class ProductController extends Controller
 {
+
     /**
      * @Route("/liste/{page}", name="productList")
      */
     public function listProductAction($page = 1)
     {
+        /**
+         * Get Nbr of element by page
+         * Get Nbr of element (total)
+         * Count nbr of page needed
+         */
         $maxProduct = 20;
         $product_count = 500;
         $pagination = array(
@@ -30,15 +38,12 @@ class ProductController extends Controller
             'route_params' => array()
         );
 
-        $monUrl = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
         $products = $this->getDoctrine()->getRepository('GescomBundle:Product')
             ->getListByPage($page, $maxProduct);
-
 
         return $this->render('GescomBundle:Pages/Product:product_list.html.twig', array(
             'pagination' => $pagination,
             'products'  => $products,
-            'url' => $monUrl
         ));
     }
 
@@ -59,19 +64,19 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            /**
+             * Here we need to kept all suppliers in var
+             * and clean ! After need to set product & supplier
+             * Can save it
+             */
             $suppliers = $product->getProductSupplier()["name"];
-            // suppliers are stored with a top level "name" unecessary
-            // we must remove this "name" level with this custom method
             $product->resetProductSupplier();
             foreach($suppliers as $supplier){
-                // create a new link entity
                 $productSupplier = new ProductSupplier();
-                // set product
                 $productSupplier->setProduct($product);
-                // set supplier
                 $productSupplier->setSupplier($supplier);
                 $em->persist($productSupplier);
-                // add supplier to product
                 $product->addProductSupplier($productSupplier);
             }
             $em->persist($product);
@@ -103,19 +108,19 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            /**
+             * Here we need to kept all suppliers in var
+             * and clean ! After need to set product & supplier
+             * Can save it
+             */
             $suppliers = $product->getProductSupplier()["name"];
-            // suppliers are stored with a top level "name" unecessary
-            // we must remove this "name" level with this custom method
             $product->resetProductSupplier();
             foreach($suppliers as $supplier){
-                // create a new link entity
                 $productSupplier = new ProductSupplier();
-                // set product
                 $productSupplier->setProduct($product);
-                // set supplier
                 $productSupplier->setSupplier($supplier);
                 $em->persist($productSupplier);
-                // add supplier to product
                 $product->addProductSupplier($productSupplier);
             }
             $em->persist($product);
@@ -124,7 +129,8 @@ class ProductController extends Controller
         }
 
         return $this->render('GescomBundle:Pages/Product:product_update.html.twig', array(
-            'form' => $form->createView(),
+            'form'      => $form->createView(),
+            'product'   => $product,
         ));
     }
 
@@ -156,4 +162,5 @@ class ProductController extends Controller
             'product'   => $product,
         ));
     }
+
 }

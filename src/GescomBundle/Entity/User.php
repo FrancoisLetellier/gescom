@@ -6,15 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use GescomBundle\Entity\UserProfile;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="GescomBundle\Repository\UserRepository")
- * @UniqueEntity(fields="username", message="Ce nom de compte est déjà utilisé")
+ * @UniqueEntity(fields="email", message="Cet email est déjà utilisé")
  */
-class User implements UserInterface
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -28,10 +29,9 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=60, unique=true)
-     * @Assert\NotBlank(message="Vous devez entrer un nom d'utilisateur")
+     * @ORM\Column(name="email", type="string", length=120, unique=true)
      */
-    private $username;
+    private $email;
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir un mot de passe")
@@ -45,6 +45,13 @@ class User implements UserInterface
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @var UserProfile
+     *
+     * @ORM\OneToOne(targetEntity="UserProfile", inversedBy="user", cascade={"persist"})
+     */
+    private $profile;
 
     /**
      * @ORM\Column(name="salt", type="string", length=255)
@@ -69,7 +76,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get id
+     * Getter id
      *
      * @return integer
      */
@@ -79,31 +86,36 @@ class User implements UserInterface
     }
 
     /**
-     * Set username
+     * Getter email
      *
-     * @param string $username
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Setter email
+     *
+     * @param $email
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
 
-    /**
-     * Get username
-     *
-     * @return string
-     */
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
-     * Set plainPassword
+     * Setter plainPassword
      *
      * @param $password
      */
@@ -113,7 +125,7 @@ class User implements UserInterface
     }
 
     /**
-     * Get plainPassword
+     * Getter plainPassword
      *
      * @return mixed
      */
@@ -123,7 +135,7 @@ class User implements UserInterface
     }
 
     /**
-     * Set password
+     * Setter password
      *
      * @param string $password
      *
@@ -137,13 +149,36 @@ class User implements UserInterface
     }
 
     /**
-     * Get password
+     * Getter password
      *
      * @return string
      */
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Getter profile
+     *
+     * @return mixed
+     */
+    public function getProfile()
+    {
+        return $this->profile;
+    }
+
+    /**
+     * Setter profile
+     *
+     * @param \GescomBundle\Entity\UserProfile $profile
+     * @return $this
+     */
+    public function setProfile(\GescomBundle\Entity\UserProfile $profile)
+    {
+        $this->profile = $profile;
+
+        return $this;
     }
 
     /**
@@ -193,7 +228,7 @@ class User implements UserInterface
     {
         return serialize(array(
             $this->id,
-            $this->username,
+            $this->email,
             $this->password,
             // see section on salt below
             // $this->salt,
@@ -205,7 +240,7 @@ class User implements UserInterface
     {
         list (
             $this->id,
-            $this->username,
+            $this->email,
             $this->password,
             // see section on salt below
             // $this->salt
@@ -235,4 +270,5 @@ class User implements UserInterface
     {
         return $this->isActive;
     }
+
 }

@@ -19,10 +19,6 @@ npm install gulp-sass --save-dev
 npm install browser-sync --save-dev
 echo $PWD
 
-git clone git@gist.github.com:5061eda48dbd2e84d1a358581776836c.git gulp
-mv $PWD/gulp/gulpfile.js $PWD
-rm -rf gulp
-
 echo '******************************************************'
 echo '*                                                    *'
 echo '*   Gulp est initialiser avec sass et browser-sync   *'

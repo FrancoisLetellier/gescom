@@ -22,6 +22,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
+     * General var
+     * Set nb rolesUsers needed
+     */
+    private $nbAdmin        = 2;
+    private $nbModerator    = 5;
+    private $nbVendor       = 10;
+    private $nbUser         = 20;
+
+    /**
      * @param ObjectManager $em
      */
     public function load(ObjectManager $em)
@@ -29,50 +38,63 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         /**
          * Admin Area
          */
-        $admin = new User();
-        $admin->setUsername('admin');
-        $admin->setPassword(password_hash("admin", PASSWORD_BCRYPT));
-        $admin->setSalt('');
-        $admin->setRoles(array('ROLE_ADMIN'));
-        $em->persist($admin);
+        for ($i=1; $i <= $this->nbAdmin; ++$i){
+            $admin = new User();
+            $admin->setEmail('admin'.$i.'@test.fr');
+            $admin->setPassword(password_hash("admin", PASSWORD_BCRYPT));
+            $admin->setSalt('');
+            $admin->setRoles(array('ROLE_ADMIN'));
+            $em->persist($admin);
+        }
 
         /**
          * Moderator Area
          */
-        $moderator = new User();
-        $moderator->setUsername('moderator');
-        $moderator->setPassword(password_hash("moderator", PASSWORD_BCRYPT));
-        $moderator->setSalt('');
-        $moderator->setRoles(array('ROLE_MODERATOR'));
-        $em->persist($moderator);
+        for ($i=1; $i <= $this->nbModerator; ++$i) {
+            $moderator = new User();
+            $moderator->setEmail('moderator'.$i.'@test.fr');
+            $moderator->setPassword(password_hash("moderator", PASSWORD_BCRYPT));
+            $moderator->setSalt('');
+            $moderator->setRoles(array('ROLE_MODERATOR'));
+            $em->persist($moderator);
+        }
 
         /**
          * Vendor Area
          */
-        $vendor = new User();
-        $vendor->setUsername('vendor');
-        $vendor->setPassword(password_hash("vendor", PASSWORD_BCRYPT));
-        $vendor->setSalt('');
-        $vendor->setRoles(array('ROLE_VENDOR'));
-        $em->persist($vendor);
+        for ($i=1; $i <= $this->nbVendor; ++$i) {
+            $vendor = new User();
+            $vendor->setEmail('vendor'.$i.'@test.fr');
+            $vendor->setPassword(password_hash("vendor", PASSWORD_BCRYPT));
+            $vendor->setSalt('');
+            $vendor->setRoles(array('ROLE_VENDOR'));
+            $em->persist($vendor);
+        }
 
         /**
          * User Area
          */
-        $user = new User();
-        $user->setUsername('user');
-        $user->setPassword(password_hash("user", PASSWORD_BCRYPT));
-        $user->setSalt('');
-        $user->setRoles(array('ROLE_USER'));
-        $em->persist($user);
+        for ($i=1; $i <= $this->nbUser; ++$i) {
+            $user = new User();
+            $user->setEmail('user'.$i.'@test.fr');
+            $user->setPassword(password_hash("user", PASSWORD_BCRYPT));
+            $user->setSalt('');
+            $user->setRoles(array('ROLE_USER'));
+            $em->persist($user);
+        }
 
         /**
          * Save Generates
          */
         $em->flush();
     }
+
+    /**
+     * @return int
+     */
     public function getOrder()
     {
         return 5;
     }
+
 }

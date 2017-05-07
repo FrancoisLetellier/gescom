@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <section id="product_Page">
+    <section>
         <div class="row">
             <div class="col s12">
-                <h4>Modification d'un produit</h4>
+                <h3>Modification d'un produit</h3>
             </div>
         </div>
 
@@ -21,6 +21,13 @@
 
         <div id="product_update" class="col s12">
             {{ form(form) }}
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous pouvez aussi supprimer ce produit</p>
+            <a href="/produit/{{ product.id }}/suppression" class="waves-effect waves-light btn error">
+                Supprimer le produit !
+            </a>
         </div>
     </section>
 

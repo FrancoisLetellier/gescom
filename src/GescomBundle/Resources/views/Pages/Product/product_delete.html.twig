@@ -4,10 +4,10 @@
 
 {% block body %}
 
-    <section id="product_Page">
+    <section>
         <div class="row">
             <div class="col s12">
-                <h4>Suppression d'un produit</h4>
+                <h3>Suppression d'un produit</h3>
             </div>
         </div>
 
@@ -57,11 +57,13 @@
             {{ form_widget(form.submit, { 'attr': {'class': 'waves-effect waves-light btn error'} }) }}
             {{ form_end(form) }}
         </div>
+
         <div class="col s12 be-flex spaceIt-between">
             <p>Vous avez aussi la possibilité de le modifier</p>
-            <a href="/{{ product.id }}/modification" class="waves-effect waves-light btn warning">Modifier le produit !</a>
+            <a href="/produit/{{ product.id }}/modification" class="waves-effect waves-light btn warning">
+                Modifier le produit !
+            </a>
         </div>
-
     </section>
 
 {% endblock %}

@@ -1,0 +1,32 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Modifier une catégorie{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="row">
+            <div class="col s12">
+                <h3>Modification d'une catégorie</h3>
+            </div>
+        </div>
+
+        <div class="top-page-bar">
+            {# Button to add new product #}
+            <a href="{{ path('categoryList') }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>
+                Retourner à la liste des categories
+            </a>
+        </div>
+
+        <div id="category_update" class="col s12">
+            {{ form(form) }}
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous pouvez aussi supprimer la catégorie</p>
+            <a href="/categorie/{{ category.id }}/suppression" class="waves-effect waves-light btn error">Supprimer la catégorie</a>
+        </div>
+    </section>
+
+{% endblock %}

@@ -4,6 +4,7 @@ namespace GescomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use GescomBundle\Entity\Category;
 
 /**
  * Product
@@ -37,21 +38,22 @@ class Product
     private $description;
 
     /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      */
     private $category;
 
     /**
      * @var ProductSupplier
      *
-     * @ORM\OneToMany(targetEntity="ProductSupplier", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="ProductSupplier", mappedBy="product", cascade={"remove"})
      */
     private $productSupplier;
 
     /**
      * @var boolean $checkToDelete
-     * @Assert\IsTrue(message = "The token is invalid")
+     * @Assert\IsTrue(message="The token is invalid")
      */
     private $checkToDelete;
 
@@ -200,6 +202,5 @@ class Product
     {
         $this->checkToDelete = $checkToDelete;
     }
-
 
 }

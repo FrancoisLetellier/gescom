@@ -2,13 +2,18 @@
  * Header Area
  */
 header {
-
   .nav-wrapper {
     background-color: $color1;
 
     .brand-logo {
       padding-left: 1rem;
       color: $color3;
+    }
+
+    .dropdown-content {
+      a {
+        color: $color1;
+      }
     }
 
     ul {
@@ -28,6 +33,7 @@ header {
     }
   }
 }
+
 .top-page-bar {
   padding: 0 0 2rem 0;
 }

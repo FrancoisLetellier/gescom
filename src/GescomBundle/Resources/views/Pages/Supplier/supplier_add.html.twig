@@ -3,20 +3,25 @@
 {% block title %}Ajouter un produit{% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_ADMIN') %}
-        <section id="product_addPage">
-            {# Button to add new product #}
-            <a href="/fournisseur/" class="waves-effect waves-light btn">
-                <i class="material-icons left">list</i>
-                Voir la liste des fournisseurs
-            </a>
 
-            <div id="product_add" class="col s12">
-                {{ form(form) }}
+    <section>
+        <div class="row">
+            <div class="col s12">
+                <h3>Nouveau fournisseur</h3>
             </div>
-        </section>
-    {% else %}
-        {% import 'GescomBundle:Elements:macro_alert.html.twig' as box %}
-        {% box.alertBox('error', 'Erreur', 'Vous n\'avez pas accès à cette section !') %}
-    {% endif %}
+        </div>
+
+        <div class="top-page-bar">
+                {# Button to view supplier list #}
+                <a href="{{ path('supplierList') }}" class="waves-effect waves-light btn add_product_btn">
+                    <i class="material-icons left">launch</i>
+                    Retourner à la liste de fournisseurs
+                </a>
+        </div>
+
+        <div id="product_add" class="col s12">
+            {{ form(form) }}
+        </div>
+    </section>
+
 {% endblock %}

@@ -1,14 +1,35 @@
+<ul id="dropdown-account-user" class="dropdown-content">
+    <li><a href="{{ path('userArea') }}">Mon compte</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+</ul>
+<ul id="dropdown-account-anony" class="dropdown-content">
+    <li><a href="{{ path('register') }}">S'inscrire</a></li>
+    <li class="divider"></li>
+    <li><a href="{{ path('login') }}">Se connecter</a></li>
+</ul>
 <nav>
     <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Gescom</a>
+        <a href="/" class="brand-logo">Gescom</a>
         <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons">view_week</i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/">Accueil</a></li>
             <li><a href="{{ path('productList') }}">Produits</a></li>
             <li><a href="{{ path('categoryList') }}">Categories</a></li>
             <li><a href="{{ path('supplierList') }}">Fournisseurs</a></li>
-            <li><a href="{{ path('userArea') }}">Mon compte</a></li>
-            {% if is_granted('ROLE_USER') %}<li><a href="{{ path('logout') }}">Déconnexion</a></li>{% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown-account-user">Mon compte
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+            {% else %}
+                <li>
+                    <a class="dropdown-button" href="#!" data-activates="dropdown-account-anony">Mon compte
+                        <i class="material-icons right">arrow_drop_down</i>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
 
         <ul class="side-nav" id="mobile-nav">

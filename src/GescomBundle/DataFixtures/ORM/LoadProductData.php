@@ -44,8 +44,12 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
         $em->flush();
     }
 
+    /**
+     * @return int
+     */
     public function getOrder()
     {
         return 3;
     }
+
 }

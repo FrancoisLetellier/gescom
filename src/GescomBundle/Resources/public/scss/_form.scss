@@ -18,8 +18,10 @@ form {
       border-bottom: 1px solid $color1!important;
       box-shadow: 0 1px 0 0 $color1!important;
     }
-  }
-  .form-submit-1 {
 
   }
+  .active {
+    color: $color1!important;
+  }
+
 }

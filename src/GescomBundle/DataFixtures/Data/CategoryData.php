@@ -13,6 +13,11 @@ class CategoryData
      */
     private $datas;
 
+    public function __construct()
+    {
+        $this->datas = $this->setDatas();
+    }
+
     /**
      * @return array
      */
@@ -22,23 +27,15 @@ class CategoryData
     }
 
     /**
-     * CategoryData constructor.
-     */
-    public function __construct()
-    {
-        $this->datas = $this->getDataList();
-    }
-
-    /**
      * @return array
      */
-    private function getDataList()
+    public function setDatas()
     {
         /**
          * 1st line = name
          * 2st line = description
          */
-        return $categoryList = [
+        return [
             '0' => [
                 'Ecran',
                 'Ecran et moniteurs.'

@@ -1,0 +1,55 @@
+{% extends '@Gescom/Default/base.html.twig' %}
+
+{% block title %}Supprimer une catégorie{% endblock %}
+
+{% block body %}
+
+    <section>
+        <div class="row">
+            <div class="col s12">
+                <h3>Suppression d'une catégorie</h3>
+            </div>
+        </div>
+
+        <div class="top-page-bar">
+            {# Button to see a product list #}
+            <a href="{{ path('categoryList') }}" class="waves-effect waves-light btn">
+                <i class="material-icons left">list</i>
+                Retourner à la liste des catégories
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="information-by-id">
+                {# id info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Id de la catégorie : </span>
+                    <span class="value-info">{{ category.id }}</span>
+                </div>
+                {# name info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Nom de la cétaégorie : </span>
+                    <span class="value-info">{{ category.name }}</span>
+                </div>
+                {# category info #}
+                <div class="box-information-by-id">
+                    <span class="label-info">Description : </span>
+                    <span class="value-info">{{ category.description }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Etes vous certains de vouloir supprimer la catégorie ?</p>
+            {{ form_start(form) }}
+            {{ form_widget(form.submit, { 'attr': {'class': 'waves-effect waves-light btn error'} }) }}
+            {{ form_end(form) }}
+        </div>
+
+        <div class="col s12 be-flex spaceIt-between">
+            <p>Vous avez aussi la possibilité de la modifier</p>
+            <a href="/categorie/{{ category.id }}/modification" class="waves-effect waves-light btn warning">Modifier la catégorie !</a>
+        </div>
+    </section>
+
+{% endblock %}

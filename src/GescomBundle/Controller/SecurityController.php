@@ -3,7 +3,8 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\User;
-use GescomBundle\Form\UserType;
+use GescomBundle\Entity\UserProfile;
+use GescomBundle\Form\User\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,17 +26,7 @@ class SecurityController extends Controller
      */
     public function indexAction()
     {
-        $accountOnline = false;
-        $msgReturn = array(
-            'type' => 'error',
-            'title' => 'Erreur',
-            'text' => 'Vous n\'avez pas accès à cette page, veuillez vous connecter !'
-        );
-
-        return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
-            'accountOnline' => $accountOnline,
-            'return' => $msgReturn,
-        ));
+        return $this->render('GescomBundle:Pages/User:user_account.html.twig');
     }
 
     /**
@@ -46,9 +37,12 @@ class SecurityController extends Controller
      */
     public function addAction(Request $request)
     {
-        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        /**
+         * USER can't come to register page
+         * We check if auth has role ROLE_USER
+         * if is ok, redirect to account section
+         */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // Sinon on déclenche une exception « Accès interdit »
             return $this->redirectToRoute('userArea');
         }
 
@@ -59,14 +53,28 @@ class SecurityController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()){
 
+            /**
+             * Here we get the encoderType
+             * location #app/config/security.yml
+             */
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
-
             $user->setSalt('');
             $user->setPassword($password);
+            $user->setEmail($user->getUsername());
+
+            $userProfile = new UserProfile();
+
             $user->setRoles(array('ROLE_USER'));
+            $user->setProfile($userProfile);
+            $user->setEmail($user->getUsername());
+
+            $userProfile->setUsername(mt_rand(1, 10000).'test');
+            $userProfile->setAvatar('assets/img/avatar.png');
+            $userProfile->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
+            $em->persist($userProfile);
             $em->persist($user);
             $em->flush();
 
@@ -78,7 +86,6 @@ class SecurityController extends Controller
         ));
     }
 
-
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -87,18 +94,21 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        /**
+         * USER can't come to login page
+         * We check if auth has role ROLE_USER
+         * if is ok, redirect to account section
+         */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // Sinon on déclenche une exception « Accès interdit »
             return $this->redirectToRoute('userArea');
         }
 
+        /**
+         * Get the login error if there is one
+         * Get the last username entered by user
+         */
         $authenticationUtils = $this->get('security.authentication_utils');
-
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('@Gescom/Pages/User/user_connect.html.twig', array(

@@ -11,15 +11,6 @@
   justify-content: space-between; }
 
 /**
- * Icons Spot
- */
-.table-icon-link .table-icon {
-  color: #484848 !important; }
-
-.material-icons {
-  display: inline-block !important; }
-
-/**
  * General Areal
  */
 .container {
@@ -43,6 +34,8 @@ header .nav-wrapper {
   header .nav-wrapper .brand-logo {
     padding-left: 1rem;
     color: #ffffff; }
+  header .nav-wrapper .dropdown-content a {
+    color: #5fd9a2; }
   header .nav-wrapper ul li a {
     color: #ffffff; }
   header .nav-wrapper .side-nav li a {
@@ -51,12 +44,18 @@ header .nav-wrapper {
 .top-page-bar {
   padding: 0 0 2rem 0; }
 
+/**
+ * User Area
+ */
 #account_top_bar #accountCallInfo ul {
   display: flex;
   list-style-type: none; }
   #account_top_bar #accountCallInfo ul li {
     padding: 0 1rem; }
 
+/**
+ * Box obj Area
+ */
 .information-by-id .box-information-by-id {
   border-bottom: 1px solid #484848;
   display: flex;
@@ -72,6 +71,22 @@ header .nav-wrapper {
       width: 100%; } }
 
 /**
+ * Icons Area
+ */
+.table-icon-link .table-icon {
+  color: #484848 !important; }
+
+.material-icons {
+  display: inline-block !important; }
+
+/**
+ * Modal area
+ */
+.modal-footer {
+  display: flex;
+  justify-content: space-between; }
+
+/**
  * Form Area
  */
 input[type="checkbox"]:checked + label:before {
@@ -85,12 +100,19 @@ form input:focus {
   border-bottom: 1px solid #5fd9a2 !important;
   box-shadow: 0 1px 0 0 #5fd9a2 !important; }
 
+form .active {
+  color: #5fd9a2 !important; }
+
+/**
+ * Message alert Area
+ */
 .msg-alert-area {
   border: 1px solid rgba(50, 50, 50, 0.5);
   border-radius: 3px;
   box-shadow: 0 1px 1px 0 rgba(50, 50, 50, 0.5);
-  color: #484848;
-  padding: 2rem 0; }
+  color: #ffffff;
+  padding: 2rem 0;
+  margin: 0 0 3rem 0; }
   .msg-alert-area .msg-alert-title {
     font-size: 2rem;
     padding: 0 1rem;
@@ -120,16 +142,16 @@ form input:focus {
 .add_btn {
   margin: 0 auto; }
 
-.btn, button {
+.btn, button, input[type="submit"] {
   background-color: #5fd9a2;
   color: #ffffff; }
-  .btn:hover, button:hover {
+  .btn:hover, button:hover, input[type="submit"]:hover {
     background-color: #74deae; }
 
 a i.material-icons {
   color: #ffffff; }
 
-button {
+button, input[type="submit"] {
   text-decoration: none;
   text-align: center;
   letter-spacing: .5px;
