@@ -6,10 +6,8 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
+use GescomBundle\DataFixtures\Data\CategoryData;
 use GescomBundle\Entity\Category;
-
-
-use Faker;
 
 /**
  * Class LoadCategoryData
@@ -22,14 +20,19 @@ class LoadCategoryData  extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $em)
     {
-        $faker = Faker\Factory::create();
+        /**
+         * Get my faker frDatas
+         */
+        $fakerCat = new CategoryData();
+        $categories = $fakerCat->getDatas();
+
         /**
          * Category Area
          */
         for ($i = 0; $i < 10; $i++){
             $category = new Category();
-            $category->setName(implode($faker->words(2)));
-            $category->setDescription($faker->sentence(5));
+            $category->setName($categories[$i][0]);
+            $category->setDescription($categories[$i][1]);
             $em->persist($category);
             $this->setReference('category_id_'.$i, $category);
         }
