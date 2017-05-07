@@ -3,6 +3,7 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\User;
+use GescomBundle\Entity\UserProfile;
 use GescomBundle\Form\User\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
@@ -25,17 +26,7 @@ class SecurityController extends Controller
      */
     public function indexAction()
     {
-        $accountOnline = false;
-        $msgReturn = array(
-            'type' => 'error',
-            'title' => 'Erreur',
-            'text' => 'Vous n\'avez pas accès à cette page, veuillez vous connecter !'
-        );
-
-        return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
-            'accountOnline' => $accountOnline,
-            'return' => $msgReturn,
-        ));
+        return $this->render('GescomBundle:Pages/User:user_account.html.twig');
     }
 
     /**
@@ -70,9 +61,20 @@ class SecurityController extends Controller
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setSalt('');
             $user->setPassword($password);
+            $user->setEmail($user->getUsername());
+
+            $userProfile = new UserProfile();
+
             $user->setRoles(array('ROLE_USER'));
+            $user->setProfile($userProfile);
+            $user->setEmail($user->getUsername());
+
+            $userProfile->setUsername(mt_rand(1, 10000).'test');
+            $userProfile->setAvatar('assets/img/avatar.png');
+            $userProfile->setUser($user);
 
             $em = $this->getDoctrine()->getManager();
+            $em->persist($userProfile);
             $em->persist($user);
             $em->flush();
 
@@ -83,7 +85,6 @@ class SecurityController extends Controller
             'form' => $form->createView(),
         ));
     }
-
 
     /**
      * @param Request $request

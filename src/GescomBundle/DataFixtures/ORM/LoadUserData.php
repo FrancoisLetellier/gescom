@@ -40,7 +40,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         for ($i=1; $i <= $this->nbAdmin; ++$i){
             $admin = new User();
-            $admin->setUsername('admin'.$i);
+            $admin->setEmail('admin'.$i.'@test.fr');
             $admin->setPassword(password_hash("admin", PASSWORD_BCRYPT));
             $admin->setSalt('');
             $admin->setRoles(array('ROLE_ADMIN'));
@@ -52,7 +52,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         for ($i=1; $i <= $this->nbModerator; ++$i) {
             $moderator = new User();
-            $moderator->setUsername('moderator'.$i);
+            $moderator->setEmail('moderator'.$i.'@test.fr');
             $moderator->setPassword(password_hash("moderator", PASSWORD_BCRYPT));
             $moderator->setSalt('');
             $moderator->setRoles(array('ROLE_MODERATOR'));
@@ -64,7 +64,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         for ($i=1; $i <= $this->nbVendor; ++$i) {
             $vendor = new User();
-            $vendor->setUsername('vendor'.$i);
+            $vendor->setEmail('vendor'.$i.'@test.fr');
             $vendor->setPassword(password_hash("vendor", PASSWORD_BCRYPT));
             $vendor->setSalt('');
             $vendor->setRoles(array('ROLE_VENDOR'));
@@ -76,7 +76,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
          */
         for ($i=1; $i <= $this->nbUser; ++$i) {
             $user = new User();
-            $user->setUsername('user'.$i);
+            $user->setEmail('user'.$i.'@test.fr');
             $user->setPassword(password_hash("user", PASSWORD_BCRYPT));
             $user->setSalt('');
             $user->setRoles(array('ROLE_USER'));

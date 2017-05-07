@@ -21,7 +21,7 @@ security:
         db_provider:
             entity:
                 class: GescomBundle:User
-                property: username
+                property: email
 
     access_control:
         # - { path: ^/mon-compte/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
