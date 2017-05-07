@@ -16,7 +16,7 @@
             {# S'il y a une erreur, on l'affiche dans un joli cadre #}
             {% if error %}
                 {% import '@Gescom/Elements/macro_alert.html.twig' as box %}
-                {{ box.alertBox('error', 'Erreur : ', error.message) }}
+                {{ box.alertBox('error', 'Erreur : ', 'Vous identifiants sont incorrect !') }}
             {% endif %}
 
             {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
