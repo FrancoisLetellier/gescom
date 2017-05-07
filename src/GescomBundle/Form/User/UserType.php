@@ -51,4 +51,5 @@ class UserType extends AbstractType
     {
         return 'gescom_bundle_user_type';
     }
+
 }

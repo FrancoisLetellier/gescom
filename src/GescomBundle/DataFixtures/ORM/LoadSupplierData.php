@@ -49,8 +49,13 @@ class LoadSupplierData extends AbstractFixture implements OrderedFixtureInterfac
          */
         $em->flush();
     }
+
+    /**
+     * @return int
+     */
     public function getOrder()
     {
         return 2;
     }
+
 }

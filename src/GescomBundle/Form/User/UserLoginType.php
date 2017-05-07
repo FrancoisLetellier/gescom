@@ -48,4 +48,5 @@ class UserLoginType extends AbstractType
     {
         return 'gescom_bundle_user_log_type';
     }
+
 }

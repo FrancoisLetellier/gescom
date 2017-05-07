@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * Class SupplierController
  * @package GescomBundle\Controller
@@ -17,7 +18,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class CategoryController extends Controller
 {
     /**
-     * @Route("/", name="categoryList")
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/liste", name="categoryList")
      */
     public function indexAction()
     {
@@ -46,7 +49,6 @@ class CategoryController extends Controller
         if ($form->isSubmitted() && $form->isValid()){
             $em->persist($category);
             $em->flush();
-
         }
 
         return $this->render('GescomBundle:Pages/Category:category_update.html.twig', array(
@@ -112,4 +114,5 @@ class CategoryController extends Controller
             'category'   => $category,
         ));
     }
+
 }

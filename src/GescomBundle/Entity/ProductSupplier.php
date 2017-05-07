@@ -93,4 +93,5 @@ class ProductSupplier
     {
         return $this->supplier;
     }
+
 }

@@ -46,4 +46,5 @@ class SupplierDeleteType extends AbstractType
     {
         return 'gescom_bundle_supplierDelete_type';
     }
+
 }

@@ -51,4 +51,5 @@ class ProductType extends AbstractType
     {
         return 'gescom_bundle_product_type';
     }
+
 }

@@ -45,4 +45,5 @@ class ProductDeleteType extends AbstractType
     {
         return 'gescom_bundle_productDelete_type';
     }
+
 }

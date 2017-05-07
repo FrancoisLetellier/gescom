@@ -51,4 +51,5 @@ class SupplierType extends AbstractType
     {
         return 'gescom_bundle_supplier_type';
     }
+
 }

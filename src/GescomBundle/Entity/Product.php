@@ -53,7 +53,7 @@ class Product
 
     /**
      * @var boolean $checkToDelete
-     * @Assert\IsTrue(message = "The token is invalid")
+     * @Assert\IsTrue(message="The token is invalid")
      */
     private $checkToDelete;
 
@@ -202,6 +202,5 @@ class Product
     {
         $this->checkToDelete = $checkToDelete;
     }
-
 
 }

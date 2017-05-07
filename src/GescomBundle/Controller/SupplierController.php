@@ -18,10 +18,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SupplierController extends Controller
 {
     /**
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/liste/{page}", name="supplierList")
      */
     public function indexAction($page = 1)
     {
+        /**
+         * Get Nbr of element by page
+         * Get Nbr of element (total)
+         * Count nbr of page needed
+         */
         $maxSupplier = 20;
         $supplier_count = 500;
         $pagination = array(
@@ -33,7 +41,6 @@ class SupplierController extends Controller
 
         $suppliers = $this->getDoctrine()->getRepository('GescomBundle:Supplier')
             ->getListByPage($page, $maxSupplier);
-
 
         return $this->render('GescomBundle:Pages/Supplier:supplier_list.html.twig', array(
             'pagination' => $pagination,

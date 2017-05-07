@@ -46,9 +46,12 @@ class SecurityController extends Controller
      */
     public function addAction(Request $request)
     {
-        // We check if auth has rôle ROLE_USER
+        /**
+         * USER can't come to register page
+         * We check if auth has role ROLE_USER
+         * if is ok, redirect to account section
+         */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // We redirect user, he can't join register page
             return $this->redirectToRoute('userArea');
         }
 
@@ -59,6 +62,10 @@ class SecurityController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()){
 
+            /**
+             * Here we get the encoderType
+             * location #app/config/security.yml
+             */
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
             $user->setSalt('');
@@ -86,16 +93,21 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-        // We check if auth has rôle ROLE_USER
+        /**
+         * USER can't come to login page
+         * We check if auth has role ROLE_USER
+         * if is ok, redirect to account section
+         */
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // We redirect user, he can't join login page
             return $this->redirectToRoute('userArea');
         }
 
+        /**
+         * Get the login error if there is one
+         * Get the last username entered by user
+         */
         $authenticationUtils = $this->get('security.authentication_utils');
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('@Gescom/Pages/User/user_connect.html.twig', array(

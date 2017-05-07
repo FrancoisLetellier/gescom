@@ -382,4 +382,5 @@ class Supplier
     {
         return $this->webUrl;
     }
+
 }

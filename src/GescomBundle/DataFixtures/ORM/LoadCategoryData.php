@@ -22,7 +22,6 @@ class LoadCategoryData  extends AbstractFixture implements OrderedFixtureInterfa
      */
     public function load(ObjectManager $em)
     {
-
         $faker = Faker\Factory::create();
         /**
          * Category Area
@@ -40,8 +39,12 @@ class LoadCategoryData  extends AbstractFixture implements OrderedFixtureInterfa
         $em->flush();
     }
 
+    /**
+     * @return int
+     */
     public function getOrder()
     {
         return 1;
     }
+
 }

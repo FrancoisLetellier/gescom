@@ -48,4 +48,5 @@ class SupplierListType extends AbstractType
     {
         return 'gescom_bundle_supplierList_type';
     }
+
 }

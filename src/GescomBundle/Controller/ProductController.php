@@ -24,6 +24,11 @@ class ProductController extends Controller
      */
     public function listProductAction($page = 1)
     {
+        /**
+         * Get Nbr of element by page
+         * Get Nbr of element (total)
+         * Count nbr of page needed
+         */
         $maxProduct = 20;
         $product_count = 500;
         $pagination = array(
@@ -59,19 +64,19 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            /**
+             * Here we need to kept all suppliers in var
+             * and clean ! After need to set product & supplier
+             * Can save it
+             */
             $suppliers = $product->getProductSupplier()["name"];
-            // suppliers are stored with a top level "name" unecessary
-            // we must remove this "name" level with this custom method
             $product->resetProductSupplier();
             foreach($suppliers as $supplier){
-                // create a new link entity
                 $productSupplier = new ProductSupplier();
-                // set product
                 $productSupplier->setProduct($product);
-                // set supplier
                 $productSupplier->setSupplier($supplier);
                 $em->persist($productSupplier);
-                // add supplier to product
                 $product->addProductSupplier($productSupplier);
             }
             $em->persist($product);
@@ -103,19 +108,19 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            /**
+             * Here we need to kept all suppliers in var
+             * and clean ! After need to set product & supplier
+             * Can save it
+             */
             $suppliers = $product->getProductSupplier()["name"];
-            // suppliers are stored with a top level "name" unecessary
-            // we must remove this "name" level with this custom method
             $product->resetProductSupplier();
             foreach($suppliers as $supplier){
-                // create a new link entity
                 $productSupplier = new ProductSupplier();
-                // set product
                 $productSupplier->setProduct($product);
-                // set supplier
                 $productSupplier->setSupplier($supplier);
                 $em->persist($productSupplier);
-                // add supplier to product
                 $product->addProductSupplier($productSupplier);
             }
             $em->persist($product);
@@ -157,4 +162,5 @@ class ProductController extends Controller
             'product'   => $product,
         ));
     }
+
 }

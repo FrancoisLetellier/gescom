@@ -28,14 +28,23 @@ class CategoryDeleteType extends AbstractType
             ->add('submit', SubmitType::class, ['label' => 'Supprimer la catégorie'])
             ->getForm();
     }
+
+    /**
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => Category::class,
         ));
     }
+
+    /**
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return 'gescom_bundle_categoryDelete_type';
     }
+
 }

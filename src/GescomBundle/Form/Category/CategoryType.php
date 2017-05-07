@@ -50,4 +50,5 @@ class CategoryType extends AbstractType
     {
         return 'gescom_bundle_category_type';
     }
+
 }
