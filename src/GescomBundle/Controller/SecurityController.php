@@ -3,7 +3,7 @@
 namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\User;
-use GescomBundle\Form\UserType;
+use GescomBundle\Form\User\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
 use Symfony\Component\HttpFoundation\Request;

@@ -37,34 +37,31 @@
                     </thead>
                     <tbody>
                         {% for product in products %}
-                            {% if product.ProductSupplier is empty %}
-                            {% else %}
-                                <tr>
-                                    <td>{{ product.id }}</td>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.category.name }}</td>
+                            <tr>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category.name }}</td>
+                                <td>
+                                    {% for supplier in product.productSupplier %}
+                                        <div class="chip">
+                                            <img src="{{ asset('assets/img/users/avatar/avatar_man.png') }}" alt="Contact Person">
+                                            {{ supplier.supplier.name }}
+                                        </div>
+                                    {% endfor %}
+                                </td>
+                                {% if is_granted('ROLE_MODERATOR') %}
                                     <td>
-                                        {% for supplier in product.productSupplier %}
-                                            <div class="chip">
-                                                <img src="{{ asset('assets/img/users/avatar/avatar_man.png') }}" alt="Contact Person">
-                                                {{ supplier.supplier.name }}
-                                            </div>
-                                        {% endfor %}
+                                        <a class="table-icon-link" href="/produit/{{ product.id }}/modification">
+                                            <i class="material-icons left table-icon">launch</i>
+                                        </a>
                                     </td>
-                                    {% if is_granted('ROLE_MODERATOR') %}
-                                        <td>
-                                            <a class="table-icon-link" href="/produit/{{ product.id }}/modification">
-                                                <i class="material-icons left table-icon">launch</i>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a class="table-icon-link" href="/produit/{{ product.id }}/suppression">
-                                                <i class="material-icons left table-icon">delete</i>
-                                            </a>
-                                        </td>
-                                    {% endif %}
-                                </tr>
-                            {% endif %}
+                                    <td>
+                                        <a class="table-icon-link" href="/produit/{{ product.id }}/suppression">
+                                            <i class="material-icons left table-icon">delete</i>
+                                        </a>
+                                    </td>
+                                {% endif %}
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>

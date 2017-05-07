@@ -45,7 +45,7 @@ class Product
     /**
      * @var ProductSupplier
      *
-     * @ORM\OneToMany(targetEntity="ProductSupplier", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="ProductSupplier", mappedBy="product", cascade={"remove"})
      */
     private $productSupplier;
 
