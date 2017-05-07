@@ -4,6 +4,7 @@ namespace GescomBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use GescomBundle\Entity\Category;
 
 /**
  * Product
@@ -37,8 +38,9 @@ class Product
     private $description;
 
     /**
-     * @var
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
      */
     private $category;
 

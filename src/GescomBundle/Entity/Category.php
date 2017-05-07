@@ -2,7 +2,9 @@
 
 namespace GescomBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use GescomBundle\Entity\Product;
 
 /**
  * Category
@@ -34,6 +36,13 @@ class Category
      * @ORM\Column(name="description", type="text")
      */
     private $description;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", cascade={"remove"})
+     */
+    private $products;
 
 
     /**
@@ -92,6 +101,22 @@ class Category
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
+
+    /**
+     * @param ArrayCollection $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
     }
 
     /**
