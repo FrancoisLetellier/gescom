@@ -46,9 +46,9 @@ class SecurityController extends Controller
      */
     public function addAction(Request $request)
     {
-        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        // We check if auth has rôle ROLE_USER
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // Sinon on déclenche une exception « Accès interdit »
+            // We redirect user, he can't join register page
             return $this->redirectToRoute('userArea');
         }
 
@@ -61,7 +61,6 @@ class SecurityController extends Controller
 
             $password = $this->get('security.password_encoder')
                 ->encodePassword($user, $user->getPlainPassword());
-
             $user->setSalt('');
             $user->setPassword($password);
             $user->setRoles(array('ROLE_USER'));
@@ -87,17 +86,15 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-        // On vérifie que l'utilisateur dispose bien du rôle ROLE_USER
+        // We check if auth has rôle ROLE_USER
         if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
-            // Sinon on déclenche une exception « Accès interdit »
+            // We redirect user, he can't join login page
             return $this->redirectToRoute('userArea');
         }
 
         $authenticationUtils = $this->get('security.authentication_utils');
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
-
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 

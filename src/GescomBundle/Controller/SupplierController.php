@@ -18,7 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SupplierController extends Controller
 {
     /**
-     * @Route("/{page}", name="supplierList")
+     * @Route("/liste/{page}", name="supplierList")
      */
     public function indexAction($page = 1)
     {

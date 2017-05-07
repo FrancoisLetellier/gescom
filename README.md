@@ -10,5 +10,5 @@ A small WCS project - Do a comManager WebApp
 - [ ] Do a system to delete foreign keys associate to
         productDeleteAction
 
-- [ ] Fix addForm (pagination conflits)
+- [x] Fix addForm (pagination conflits)
 - [ ] Fix updateForm (problem when no supplier add)

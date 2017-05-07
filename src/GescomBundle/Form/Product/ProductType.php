@@ -3,6 +3,7 @@
 namespace GescomBundle\Form\Product;
 
 use GescomBundle\Entity\Product;
+use GescomBundle\Form\Supplier\SupplierListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
