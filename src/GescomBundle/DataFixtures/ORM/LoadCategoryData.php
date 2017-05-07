@@ -21,7 +21,7 @@ class LoadCategoryData  extends AbstractFixture implements OrderedFixtureInterfa
     public function load(ObjectManager $em)
     {
         /**
-         * Get my faker frDatas
+         * Get my faker french Datas
          */
         $fakerCat = new CategoryData();
         $categories = $fakerCat->getDatas();

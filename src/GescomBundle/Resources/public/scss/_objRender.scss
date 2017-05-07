@@ -1,5 +1,7 @@
+/**
+ * Box obj Area
+ */
 .information-by-id {
-
   .box-information-by-id {
     border-bottom: 1px solid $color2;
     display: flex;
@@ -9,13 +11,7 @@
       display: block;
       width: 22rem;
     }
-
-    .value-info {
-
-    }
-
   }
-
 }
 @media (max-width: 600px) {
   .label-info {
@@ -24,7 +20,5 @@
     .label-info-chip {
       width: 100%;
     }
-  }
-  .chip-info-group {
   }
 }

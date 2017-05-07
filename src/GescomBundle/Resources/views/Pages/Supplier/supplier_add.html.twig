@@ -3,25 +3,25 @@
 {% block title %}Ajouter un produit{% endblock %}
 
 {% block body %}
-    {% if is_granted('ROLE_MODERATOR') %}
-        <section id="supplier_addPage">
-            <div class="row">
-                <div class="col s12">
-                    <h3>Nouveau fournisseur</h3>
-                </div>
-            </div>
 
-            <div class="top-page-bar">
-                    {# Button to view supplier list #}
-                    <a href="{{ path('supplierList') }}" class="waves-effect waves-light btn add_product_btn">
-                        <i class="material-icons left">launch</i>
-                        Retourner à la liste de fournisseurs
-                    </a>
+    <section>
+        <div class="row">
+            <div class="col s12">
+                <h3>Nouveau fournisseur</h3>
             </div>
+        </div>
 
-            <div id="product_add" class="col s12">
-                {{ form(form) }}
-            </div>
-        </section>
-    {% endif %}
+        <div class="top-page-bar">
+                {# Button to view supplier list #}
+                <a href="{{ path('supplierList') }}" class="waves-effect waves-light btn add_product_btn">
+                    <i class="material-icons left">launch</i>
+                    Retourner à la liste de fournisseurs
+                </a>
+        </div>
+
+        <div id="product_add" class="col s12">
+            {{ form(form) }}
+        </div>
+    </section>
+
 {% endblock %}

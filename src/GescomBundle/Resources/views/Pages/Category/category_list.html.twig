@@ -3,7 +3,8 @@
 {% block title %}Liste des categories{% endblock %}
 
 {% block body %}
-    <section id="category_listPage">
+
+    <section>
         <div class="row">
             <div class="col s12">
                 <h3>Liste des categories</h3>
@@ -11,7 +12,7 @@
         </div>
 
         <div class="top-page-bar">
-            {% if is_granted('ROLE_VENDOR') %}
+            {% if is_granted('ROLE_MODERATOR') %}
                 {# Button to add new product #}
                 <a href="{{ path('categoryAdd') }}" class="waves-effect waves-light btn add_btn">
                     <i class="material-icons left">launch</i>
@@ -24,15 +25,15 @@
             <div class="col s12">
                 <table class="striped responsive-table">
                     <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        {% if is_granted('ROLE_MODERATOR') %}
-                            <th>Modification</th>
-                            <th>Suppression</th>
-                        {% endif %}
-                    </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            {% if is_granted('ROLE_MODERATOR') %}
+                                <th>Modification</th>
+                                <th>Suppression</th>
+                            {% endif %}
+                        </tr>
                     </thead>
                     <tbody>
                     {% for category in categorys %}
@@ -68,4 +69,5 @@
             </a>
         {% endif %}
     </section>
+
 {% endblock %}

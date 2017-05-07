@@ -3,6 +3,7 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
+
     <div class="row">
         <div class="col s12">
             <h3>Inscription</h3>
@@ -12,11 +13,12 @@
     <div id="user_register">
         {{ form_start(form) }}
 
-        {{ form_row(form.username) }}
-        {{ form_row(form.plainPassword.first) }}
-        {{ form_row(form.plainPassword.second) }}
-        {{ form_row(form.submit) }}
+            {{ form_row(form.username) }}
+            {{ form_row(form.plainPassword.first) }}
+            {{ form_row(form.plainPassword.second) }}
+            {{ form_row(form.submit) }}
 
         {{ form_end(form) }}
     </div>
+
 {% endblock %}

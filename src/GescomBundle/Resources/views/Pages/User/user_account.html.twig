@@ -3,6 +3,7 @@
 {% block title %}Votre compte{% endblock %}
 
 {% block body %}
+
     <div id="account_top_bar" class="be-flex spaceIt-between">
         <div class="button-area be-flex spaceIt-between">
             {% if not is_granted('ROLE_USER') %}
@@ -21,4 +22,5 @@
             </div>
         {% endif %}
     </div>
+
 {% endblock %}

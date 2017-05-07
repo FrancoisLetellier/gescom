@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <section id="supplier_Page">
+    <section>
         <div class="row">
             <div class="col s12">
                 <h3>Modification d'un fournisseur</h3>
@@ -25,7 +25,9 @@
 
         <div class="col s12 be-flex spaceIt-between">
             <p>Vous pouvez aussi supprimer ce fournisseur</p>
-            <a href="/fournisseur/{{ supplier.id }}/suppression" class="waves-effect waves-light btn error">Supprimer le fournisseur !</a>
+            <a href="/fournisseur/{{ supplier.id }}/suppression" class="waves-effect waves-light btn error">
+                Supprimer le fournisseur !
+            </a>
         </div>
     </section>
 

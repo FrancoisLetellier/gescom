@@ -2,7 +2,6 @@
  * Header Area
  */
 header {
-
   .nav-wrapper {
     background-color: $color1;
 
@@ -12,7 +11,6 @@ header {
     }
 
     .dropdown-content {
-
       a {
         color: $color1;
       }
@@ -35,6 +33,7 @@ header {
     }
   }
 }
+
 .top-page-bar {
   padding: 0 0 2rem 0;
 }
