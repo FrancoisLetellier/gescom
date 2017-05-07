@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use GescomBundle\Entity\User;
 
+use GescomBundle\Entity\UserProfile;
 use GescomBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
@@ -25,8 +26,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
      * General var
      * Set nb rolesUsers needed
      */
-    private $nbAdmin        = 2;
-    private $nbModerator    = 5;
+    private $nbAdmin        = 1;
+    private $nbModerator    = 4;
     private $nbVendor       = 10;
     private $nbUser         = 20;
 
@@ -44,6 +45,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $admin->setPassword(password_hash("admin", PASSWORD_BCRYPT));
             $admin->setSalt('');
             $admin->setRoles(array('ROLE_ADMIN'));
+            $profile = $this->getUserProfile($admin);
+            $admin->setProfile($profile);
+
+            $em->persist($profile);
             $em->persist($admin);
         }
 
@@ -56,6 +61,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $moderator->setPassword(password_hash("moderator", PASSWORD_BCRYPT));
             $moderator->setSalt('');
             $moderator->setRoles(array('ROLE_MODERATOR'));
+            $profile = $this->getUserProfile($moderator);
+            $moderator->setProfile($profile);
+
+            $em->persist($profile);
             $em->persist($moderator);
         }
 
@@ -68,6 +77,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $vendor->setPassword(password_hash("vendor", PASSWORD_BCRYPT));
             $vendor->setSalt('');
             $vendor->setRoles(array('ROLE_VENDOR'));
+            $profile = $this->getUserProfile($vendor);
+            $vendor->setProfile($profile);
+
+            $em->persist($profile);
             $em->persist($vendor);
         }
 
@@ -80,6 +93,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
             $user->setPassword(password_hash("user", PASSWORD_BCRYPT));
             $user->setSalt('');
             $user->setRoles(array('ROLE_USER'));
+            $profile = $this->getUserProfile($user);
+            $user->setProfile($profile);
+
+            $em->persist($profile);
             $em->persist($user);
         }
 
@@ -95,6 +112,23 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
     public function getOrder()
     {
         return 5;
+    }
+
+    /**
+     * Kept profile by email
+     * and set a fixed avatar
+     *
+     * @param User $user
+     * @return UserProfile
+     */
+    private function getUserProfile(User $user)
+    {
+        $profile = new UserProfile();
+        $profile->setUsername(str_replace('@test.fr', '', $user->getEmail()));
+        $profile->setAvatar('assets/img/avatar.png');
+        $profile->setUser($user);
+
+        return $profile;
     }
 
 }
