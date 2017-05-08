@@ -6,14 +6,14 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use GescomBundle\DataFixtures\Data\CategoryData;
-use GescomBundle\Entity\Category;
+use GescomBundle\DataFixtures\Data\BrandData;
+use GescomBundle\Entity\Brand;
 
 /**
- * Class LoadCategoryData
+ * Class LoadBrandData
  * @package GescomBundle\DataFixtures\ORM
  */
-class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterface
+class LoadBrandData extends AbstractFixture implements OrderedFixtureInterface
 {
     /**
      * @param ObjectManager $em
@@ -23,18 +23,17 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         /**
          * Get my faker french Datas
          */
-        $fakerCat = new CategoryData();
-        $categories = $fakerCat->getDatas();
+        $fakerBrand = new BrandData();
+        $brands = $fakerBrand->getDatas();
 
         /**
-         * Category Area
+         * Brand Area
          */
         for ($i = 0; $i < 10; $i++){
-            $category = new Category();
-            $category->setName($categories[$i][0]);
-            $category->setDescription($categories[$i][1]);
-            $em->persist($category);
-            $this->setReference('category_id_'.$i, $category);
+            $brand = new Brand();
+            $brand->setName($brands[$i][0]);
+            $em->persist($brand);
+            $this->setReference('brand_id_'.$i, $brand);
         }
         /**
          * Save Generates
@@ -47,7 +46,7 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
      */
     public function getOrder()
     {
-        return 1;
+        return 3;
     }
 
 }

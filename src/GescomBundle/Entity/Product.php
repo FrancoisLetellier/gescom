@@ -167,7 +167,7 @@ class Product
      *
      * @return string
      */
-    public function getImage(): string
+    public function getImage()
     {
         return $this->image;
     }
@@ -178,7 +178,7 @@ class Product
      * @param string $image
      * @return $this
      */
-    public function setImage(string $image)
+    public function setImage($image)
     {
         $this->image = $image;
 

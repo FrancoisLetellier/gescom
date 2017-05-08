@@ -64,13 +64,17 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         $rsm->addJoinedEntityResult('GescomBundle\Entity\Category', 'c', 'p', 'category');
         $rsm->addFieldResult('c', 'category_id', 'id');
         $rsm->addFieldResult('c', 'category_name', 'name');
+        $rsm->addJoinedEntityResult('GescomBundle\Entity\Brand', 'b', 'p', 'brand');
+        $rsm->addFieldResult('b', 'brand_id', 'id');
+        $rsm->addFieldResult('b', 'brand_name', 'name');
 
         # make query
         /** @noinspection SqlResolve */
         return $this->getEntityManager()->createNativeQuery("
-            SELECT p.id, p.name, p.description, c.id AS category_id, c.name AS category_name
+            SELECT p.id, p.name, p.description, c.id AS category_id, c.name AS category_name, b.id AS brand_id, b.name AS brand_name
             FROM {$table} p 
             INNER JOIN category c ON p.category_id = c.id
+            INNER JOIN brand b ON p.brand_id = b.id
             WHERE c.name = {$cat}
             ORDER BY RAND() 
             LIMIT 0, {$amount}

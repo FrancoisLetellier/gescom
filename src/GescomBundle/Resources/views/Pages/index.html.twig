@@ -4,12 +4,84 @@
 
 {% block body %}
 
+    {# Block line with phone #}
+    <div class="row">
+        <h4>Nos téléphone !</h4>
+
+        <div class="row random-products">
+            {% for smartphone in randomSmartphone %}
+
+                {# product unit box #}
+                <div class="random-product-box col s12 m3 xl3">
+                    <div class="title-area">
+                        <h6>{{ smartphone.name }}</h6>
+                        <p>{{ smartphone.brand.name }}</p>
+                    </div>
+
+                    <div class="img-area">
+                        <img src="{{ asset('assets/img/shop/products/phones/telephone.png') }}" alt="Téléphone">
+                    </div>
+
+                    <div class="info-area">
+                        <p class="">Description :</p>
+                        <p>{{ smartphone.description }}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Block line with MobileComputer #}
+    <div class="row">
+        <h4>Nos ordinateurs !</h4>
+
+        <div class="row random-products">
+            {% for computer in randomComputer %}
+
+                {# product unit box #}
+                <div class="random-product-box col s12 m3 xl3">
+                    <div class="title-area">
+                        <h6>{{ computer.name }}</h6>
+                        <p>{{ computer.brand.name }}</p>
+                    </div>
+
+                    <div class="img-area largest-img">
+                        <img src="{{ asset('assets/img/shop/products/computers/portable.png') }}" alt="pc portable">
+                    </div>
+
+                    <div class="info-area">
+                        <p class="">Description :</p>
+                        <p>{{ computer.description }}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+    {# Block line with Tv #}
+    <div class="row">
+        <h4>Nos télévision !</h4>
+
     <div class="row random-products">
-        {% for product in randomProducts %}
+        {% for computer in randomComputer %}
 
             {# product unit box #}
-            <div class="random-product-box col s12 m3 xl2">
-                {{ dump(product) }}
+            <div class="random-product-box col s12 m3 xl3">
+                <div class="title-area">
+                    <h6>{{ computer.name }}</h6>
+                    <p>{{ computer.brand.name }}</p>
+                </div>
+
+                <div class="img-area largest-img">
+                    <img src="{{ asset('assets/img/shop/products/tv/television.png') }}" alt="television">
+                </div>
+
+                <div class="info-area">
+                    <p class="">Description :</p>
+                    <p>{{ computer.description }}</p>
+                </div>
             </div>
 
         {% endfor %}

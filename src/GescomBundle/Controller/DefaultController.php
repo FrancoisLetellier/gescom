@@ -12,14 +12,19 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        //$randomProducts = $this->getDoctrine()->getRepository('GescomBundle:Product')
-          //  ->getRandomProduct(6);
+        $randomTv = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getRandomProductsByCategory(4, "'Télévision'");
 
-        $randomProducts = $this->getDoctrine()->getRepository('GescomBundle:Product')
-            ->getRandomProductsByCategory(6, "'Télévision'");
+        $randomSmartphone = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getRandomProductsByCategory(4, "'Smartphone'");
+
+        $randomComputer = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getRandomProductsByCategory(4, "'Ordinateur portable'");
 
         return $this->render('GescomBundle:Pages:index.html.twig', array(
-            'randomProducts' => $randomProducts,
+            'randomTv' => $randomTv,
+            'randomSmartphone' => $randomSmartphone,
+            'randomComputer' => $randomComputer,
         ));
     }
 
