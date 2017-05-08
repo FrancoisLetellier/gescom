@@ -29,6 +29,7 @@
                         <th>Id</th>
                         <th>Nom du produit</th>
                         <th>Catégorie</th>
+                        <th>Marque</th>
                         <th>Fournisseur</th>
                         {% if is_granted('ROLE_MODERATOR') %}
                             <th>Modification</th>
@@ -41,7 +42,8 @@
                             <tr>
                                 <td>{{ product.id }}</td>
                                 <td>{{ product.name }}</td>
-                                <td>{{ product.category.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.brand }}</td>
                                 <td>
                                     {% for supplier in product.productSupplier %}
                                         <div class="chip">

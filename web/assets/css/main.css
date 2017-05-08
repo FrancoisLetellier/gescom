@@ -76,11 +76,17 @@ header .nav-wrapper {
 /**
  * Random product macro + cont parts
  */
+.random-products .top-box {
+  margin: 1rem 0; }
+  .random-products .top-box h4 {
+    display: inline;
+    border-bottom: 2px solid #484848; }
+
 .random-products .random-product-box {
   height: 100%;
   margin: 0 auto !important;
   padding: 2rem;
-  opacity: 0.7;
+  opacity: 0.8;
   transition: 0.5s ease; }
   .random-products .random-product-box:hover {
     opacity: 1;

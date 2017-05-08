@@ -8,6 +8,7 @@ A small WCS project - Do a comManager webApp
 #### TODO :
 
 - [ ] Fix updateForm (problem when no supplier add)
+- [ ] Do a automatic pagination system
 - [ ] Send message after submit forms
 - [x] Do a system to delete foreign keys associate to category
 - [x] Do a system to delete foreign keys associate to

@@ -31,7 +31,7 @@ class SupplierController extends Controller
          * Count nbr of page needed
          */
         $maxSupplier = 20;
-        $supplier_count = 500;
+        $supplier_count = 120;
         $pagination = array(
             'page' => $page,
             'route' => 'supplierList',
