@@ -16,7 +16,7 @@ class DefaultController extends Controller
           //  ->getRandomProduct(6);
 
         $randomProducts = $this->getDoctrine()->getRepository('GescomBundle:Product')
-            ->getRandomProductsByCategory(6, "'Ordinateur portable'");
+            ->getRandomProductsByCategory(6, "'Télévision'");
 
         return $this->render('GescomBundle:Pages:index.html.twig', array(
             'randomProducts' => $randomProducts,
