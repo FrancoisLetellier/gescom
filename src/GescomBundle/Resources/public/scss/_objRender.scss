@@ -22,3 +22,18 @@
     }
   }
 }
+
+/**
+ * Random product macro + cont parts
+ */
+.random-products {
+  .random-product-box {
+    margin: 0 auto!important;
+  }
+}
+@media (max-width: 600px) {
+  .random-products {
+    .random-product-box {
+    }
+  }
+}

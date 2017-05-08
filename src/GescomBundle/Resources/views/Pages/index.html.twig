@@ -3,4 +3,16 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
+
+    <div class="row random-products">
+        {% for product in randomProducts %}
+
+            {# product unit box #}
+            <div class="random-product-box col s12 m3 xl2">
+                {{ dump(product) }}
+            </div>
+
+        {% endfor %}
+    </div>
+
 {% endblock %}

@@ -38,6 +38,13 @@ class Product
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
@@ -138,12 +145,36 @@ class Product
     {
         return $this->category;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->productSupplier = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Getter image
+     *
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
+
+    /**
+     * Setter image
+     *
+     * @param string $image
+     * @return $this
+     */
+    public function setImage(string $image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
     /**

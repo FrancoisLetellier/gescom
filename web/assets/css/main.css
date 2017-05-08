@@ -71,6 +71,12 @@ header .nav-wrapper {
       width: 100%; } }
 
 /**
+ * Random product macro + cont parts
+ */
+.random-products .random-product-box {
+  margin: 0 auto !important; }
+
+/**
  * Icons Area
  */
 .table-icon-link .table-icon {

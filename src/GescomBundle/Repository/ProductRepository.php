@@ -2,7 +2,10 @@
 
 namespace GescomBundle\Repository;
 
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\NativeQuery;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
  * ProductRepository
@@ -13,6 +16,8 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
+     * getListByPage queryBuilder
+     *
      * @param int $page
      * @param int $maxByPage
      * @return Paginator
@@ -24,4 +29,52 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->setMaxResults($maxByPage);
         return new Paginator($builder);
     }
+
+    /**
+     * getRandomProducts Caller
+     *
+     * @param int $amount
+     * @param $cat
+     * @return array
+     */
+    public function getRandomProductsByCategory($amount = 6, $cat)
+    {
+        return $this->getRandomProductsByCategoryNativeQuery($amount, $cat)->getResult();
+    }
+
+    /**
+     * getRandomProductsNativeQuery Function
+     *
+     * @param int $amount
+     * @param $cat
+     * @return NativeQuery
+     */
+    public function getRandomProductsByCategoryNativeQuery($amount = 6, $cat)
+    {
+        # set entity name
+        $table = $this->getClassMetadata()
+            ->getTableName();
+
+        # create rsm object
+        $rsm = new ResultSetMapping();
+        $rsm->addEntityResult($this->getEntityName(), 'p');
+        $rsm->addFieldResult('p', 'id', 'id');
+        $rsm->addFieldResult('p', 'name', 'name');
+        $rsm->addFieldResult('p', 'description', 'description');
+        $rsm->addJoinedEntityResult('GescomBundle\Entity\Category', 'c', 'p', 'category');
+        $rsm->addFieldResult('c', 'category_id', 'id');
+        $rsm->addFieldResult('c', 'category_name', 'name');
+
+        # make query
+        /** @noinspection SqlResolve */
+        return $this->getEntityManager()->createNativeQuery("
+            SELECT p.id, p.name, p.description, c.id AS category_id, c.name AS category_name
+            FROM {$table} p 
+            INNER JOIN category c ON p.category_id = c.id
+            WHERE c.name = {$cat}
+            ORDER BY RAND() 
+            LIMIT 0, {$amount}
+        ", $rsm);
+    }
+
 }

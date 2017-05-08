@@ -12,7 +12,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('GescomBundle:Pages:index.html.twig');
+        //$randomProducts = $this->getDoctrine()->getRepository('GescomBundle:Product')
+          //  ->getRandomProduct(6);
+
+        $randomProducts = $this->getDoctrine()->getRepository('GescomBundle:Product')
+            ->getRandomProductsByCategory(6, "'Ordinateur portable'");
+
+        return $this->render('GescomBundle:Pages:index.html.twig', array(
+            'randomProducts' => $randomProducts,
+        ));
     }
 
 }
