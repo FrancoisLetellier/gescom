@@ -13,6 +13,9 @@
 /**
  * General Areal
  */
+h6 {
+  font-size: 1.2rem; }
+
 .container {
   margin: 2rem auto; }
 
@@ -69,6 +72,36 @@ header .nav-wrapper {
     width: auto; }
     .label-info .label-info-chip {
       width: 100%; } }
+
+/**
+ * Random product macro + cont parts
+ */
+.random-products .top-box {
+  margin: 1rem 0; }
+  .random-products .top-box h4 {
+    display: inline;
+    border-bottom: 2px solid #484848; }
+
+.random-products .random-product-box {
+  height: 100%;
+  margin: 0 auto !important;
+  padding: 2rem;
+  opacity: 0.8;
+  transition: 0.5s ease; }
+  .random-products .random-product-box:hover {
+    opacity: 1;
+    background-color: #e6e6e6; }
+  .random-products .random-product-box .title-area {
+    text-align: center;
+    text-transform: capitalize; }
+  .random-products .random-product-box .img-area {
+    width: 10rem;
+    margin: 0 auto !important;
+    padding: 2rem 0; }
+    .random-products .random-product-box .img-area img {
+      width: 100%; }
+  .random-products .random-product-box .largest-img {
+    width: 14rem !important; }
 
 /**
  * Icons Area

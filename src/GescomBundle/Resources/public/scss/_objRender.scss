@@ -22,3 +22,55 @@
     }
   }
 }
+
+/**
+ * Random product macro + cont parts
+ */
+.random-products {
+
+  .top-box {
+    margin: 1rem 0;
+
+    h4 {
+      display: inline;
+      border-bottom: 2px solid $color2;
+    }
+  }
+
+  .random-product-box {
+    height: 100%;
+    margin: 0 auto!important;
+    padding: 2rem;
+    opacity: 0.8;
+    transition: 0.5s ease;
+
+    &:hover{
+      opacity: 1;
+      background-color: darken(#fff, 10%);
+    }
+
+    .title-area {
+      text-align: center;
+      text-transform: capitalize;
+    }
+
+    .img-area {
+      width: 10rem;
+      margin: 0 auto!important;
+      padding: 2rem 0;
+
+      img {
+        width: 100%;
+      }
+    }
+    .largest-img {
+      width: 14rem!important;
+    }
+  }
+}
+@media (max-width: 600px) {
+  .random-products {
+    .random-product-box {
+    }
+  }
+}

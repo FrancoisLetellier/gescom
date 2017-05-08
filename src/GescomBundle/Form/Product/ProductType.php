@@ -3,6 +3,7 @@
 namespace GescomBundle\Form\Product;
 
 use GescomBundle\Entity\Product;
+use GescomBundle\Form\Category\CategoryType;
 use GescomBundle\Form\Supplier\SupplierListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,6 +29,7 @@ class ProductType extends AbstractType
             ->add('description', TextType::class, ['label' => 'Description'])
             //SF automatically retrieves correct data through doctrine links
             ->add('category')
+            ->add('brand')
             // we defined explicitely a FormType as parameter
             ->add('productSupplier', SupplierListType::class, ['label' => 'Fournisseur'])
             ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])

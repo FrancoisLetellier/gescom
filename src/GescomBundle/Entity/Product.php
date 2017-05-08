@@ -5,6 +5,7 @@ namespace GescomBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use GescomBundle\Entity\Category;
+use GescomBundle\Entity\Brand;
 
 /**
  * Product
@@ -38,6 +39,20 @@ class Product
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var Brand
+     *
+     * @ORM\ManyToOne(targetEntity="Brand", inversedBy="products")
+     */
+    private $brand;
+
+    /**
      * @var Category
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
@@ -56,6 +71,14 @@ class Product
      * @Assert\IsTrue(message="The token is invalid")
      */
     private $checkToDelete;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->productSupplier = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -138,12 +161,51 @@ class Product
     {
         return $this->category;
     }
+
     /**
-     * Constructor
+     * Getter image
+     *
+     * @return string
      */
-    public function __construct()
+    public function getImage()
     {
-        $this->productSupplier = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->image;
+    }
+
+    /**
+     * Setter image
+     *
+     * @param string $image
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Getter brand
+     *
+     * @return \GescomBundle\Entity\Brand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
+    }
+
+    /**
+     * Setter brand
+     *
+     * @param Brand|null $brand
+     * @return $this
+     */
+    public function setBrand(\GescomBundle\Entity\Brand $brand = null)
+    {
+        $this->brand = $brand;
+
+        return $this;
     }
 
     /**

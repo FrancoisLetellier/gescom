@@ -17,7 +17,8 @@
         {% if is_granted('ROLE_USER') %}
             <div id="accountCallInfo">
                 <ul>
-                    <li><span>Nom d'utilisateur : </span>{{ app.user.username }}</li>
+                    <li><span>Nom d'utilisateur : </span>{{ app.user.profile.username }}</li>
+                    <li><span>Email : </span>{{ app.user.email }}</li>
                 </ul>
             </div>
         {% endif %}
