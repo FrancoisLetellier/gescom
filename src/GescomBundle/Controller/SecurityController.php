@@ -4,11 +4,14 @@ namespace GescomBundle\Controller;
 
 use GescomBundle\Entity\User;
 use GescomBundle\Entity\UserProfile;
+use GescomBundle\Form\User\UserProfileType;
 use GescomBundle\Form\User\UserType;
+use GescomBundle\Form\User\UserUpdateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\SecurityBundle\Tests\Functional\Bundle\CsrfFormLoginBundle\Form\UserLoginType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
@@ -20,13 +23,38 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class SecurityController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @Route("/", name="userArea")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Security("has_role('ROLE_USER')")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        return $this->render('GescomBundle:Pages/User:user_account.html.twig');
+        /**
+         * Get the current user id from session
+         */
+        $userId = $this->getUser()->getId();
+
+        $user = $this->getDoctrine()
+            ->getRepository('GescomBundle:User')
+            ->find($userId);
+
+        $userProfile = $user->getProfile();
+        $formProfile = $this->createForm(UserProfileType::class, $userProfile);
+        $formProfile->getErrors();
+        $formProfile->handleRequest($request);
+
+        if ($formProfile->isSubmitted() && $formProfile->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($userProfile);
+            $em->flush();
+        }
+
+        return $this->render('GescomBundle:Pages/User:user_account.html.twig', array(
+            'formProfile'   => $formProfile->createView(),
+            'userProfile'   => $userProfile
+        ));
     }
 
     /**
@@ -116,5 +144,7 @@ class SecurityController extends Controller
             'error'         => $error,
         ));
     }
+
+
 
 }

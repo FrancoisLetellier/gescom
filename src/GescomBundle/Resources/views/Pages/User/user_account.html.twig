@@ -4,24 +4,25 @@
 
 {% block body %}
 
+    <h3>Mon compte</h3>
+
     <div id="account_top_bar" class="be-flex spaceIt-between">
         <div class="button-area be-flex spaceIt-between">
-            {% if not is_granted('ROLE_USER') %}
-                <a href="{{ path('register') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>S'inscrire</a>
-                <a href="{{ path('login') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Se connecter</a>
-            {% else %}
-                <a href="{{ path('logout') }}" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Se déconnecter</a>
-            {% endif %}
         </div>
-
-        {% if is_granted('ROLE_USER') %}
-            <div id="accountCallInfo">
-                <ul>
-                    <li><span>Nom d'utilisateur : </span>{{ app.user.profile.username }}</li>
-                    <li><span>Email : </span>{{ app.user.email }}</li>
-                </ul>
-            </div>
-        {% endif %}
     </div>
 
+    <div id="accountCallInfo">
+
+        <h5>Infos personnels</h5>
+        <div class="account-info">
+            {# To include form to update user info  #}
+        </div>
+
+        <h5>Mon profile</h5>
+        <div class="account-info">
+            {% if is_granted('ROLE_USER') %}
+                {{ form(formProfile) }}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

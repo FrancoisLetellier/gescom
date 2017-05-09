@@ -1,7 +1,6 @@
 <?php
 namespace GescomBundle\Form\User;
 
-use GescomBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -13,10 +12,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserType
+ * Class UserUpdateType
  * @package GescomBundle\Form
  */
-class UserType extends AbstractType
+class UserUpdateType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -24,16 +23,14 @@ class UserType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('email', EmailType::class, ['label' => 'Email'])
-            ->add('plainPassword', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les mots de passe doivent correspondre !',
-                'first_options'  => array('label' => 'Mot de passe'),
-                'second_options' => array('label' => 'Confirmation mot de passe'),
-            ))
-            ->add('submit', SubmitType::class, ['label' => 'S\'inscrire'])
-        ;
+        $builder->add('oldPassword', PasswordType::class);
+        $builder->add('newPassword', RepeatedType::class, array(
+            'type' => PasswordType::class,
+            'invalid_message' => 'Les mots de passe doivent correspondre.',
+            'required' => true,
+            'first_options'  => array('label' => 'nouveau mot de passe'),
+            'second_options' => array('label' => 'Confirmation du mot de passe'),
+        ));
     }
 
     /**
@@ -42,7 +39,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => User::class,
+            'data_class' => ChangePassword::class,
         ));
     }
 
